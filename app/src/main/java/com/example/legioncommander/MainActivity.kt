@@ -1,5 +1,6 @@
 package com.example.legioncommander
 
+import DeckCreationView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -37,6 +38,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.legioncommander.data.Faction
 import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 import com.example.legioncommander.views.DeckBuilderView
@@ -46,6 +48,10 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector)
     object DeckBuilder : Screen("deck_builder", "Deck Builder", Icons.Default.Build)
     object MyDecks : Screen("my_decks", "My Decks", Icons.Default.List)
     object Settings : Screen("settings", "Settings", Icons.Default.Settings)
+    object DeckCreation : Screen("deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
+        // Helper function to create the correct route for a specific faction
+        fun createRoute(factionName: String) = "deck_creation/$factionName"
+    }
 }
 
 class MainActivity : ComponentActivity() {
@@ -109,10 +115,21 @@ fun MainScreen() {
         NavHost(navController, startDestination = Screen.DeckBuilder.route, Modifier.padding(innerPadding)) {
             composable(Screen.DeckBuilder.route) {
                 // Call your new composable from the other file
-                DeckBuilderView()
+                DeckBuilderView(navController)
             }
             composable(Screen.MyDecks.route) { MyDecksScreen() }
             composable(Screen.Settings.route) { SettingsScreen() }
+            composable(Screen.DeckCreation.route) {
+                // Extract the faction name from the route
+                val factionName = it.arguments?.getString("factionName")
+                if (factionName != null) {
+                    val selectedFaction = Faction.valueOf(factionName)
+                    DeckCreationView(selectedFaction)
+                } else {
+                    // If the argument is somehow null, navigate back to prevent a crash
+                    navController.popBackStack()
+                }
+            }
         }
     }
 }
