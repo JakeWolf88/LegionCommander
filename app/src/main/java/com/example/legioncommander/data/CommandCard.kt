@@ -14,8 +14,9 @@ enum class Faction {
 
 // Data class to hold the information for a command card
 data class CommandCard(
-    @DrawableRes val picture: Int, // Use @DrawableRes to denote it's a resource ID
-    val faction: Faction,
-    val name: String,
-    val pip: Int
+    val id: String,
+    val title: String,
+    @DrawableRes val imageRes: Int,
+    val pips: Int,
+    val factions: List<Faction> = emptyList()
 )

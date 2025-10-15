@@ -1,6 +1,5 @@
 package com.example.legioncommander
 
-import DeckCreationView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -34,14 +33,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.legioncommander.data.Faction
 import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 import com.example.legioncommander.views.DeckBuilderView
+import com.example.legioncommander.views.DeckCreationView
 
 // Sealed class to define the navigation routes for our screens
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
@@ -119,14 +121,16 @@ fun MainScreen() {
             }
             composable(Screen.MyDecks.route) { MyDecksScreen() }
             composable(Screen.Settings.route) { SettingsScreen() }
-            composable(Screen.DeckCreation.route) {
-                // Extract the faction name from the route
-                val factionName = it.arguments?.getString("factionName")
+            composable(
+                route = Screen.DeckCreation.route,
+                arguments = listOf(navArgument("factionName") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val factionName = backStackEntry.arguments?.getString("factionName")
                 if (factionName != null) {
                     val selectedFaction = Faction.valueOf(factionName)
+                    // This now calls the powerful Composable in your new file
                     DeckCreationView(selectedFaction)
                 } else {
-                    // If the argument is somehow null, navigate back to prevent a crash
                     navController.popBackStack()
                 }
             }
