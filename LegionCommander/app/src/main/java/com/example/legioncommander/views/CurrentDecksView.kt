@@ -20,9 +20,10 @@ import androidx.compose.ui.unit.dp
 import com.example.legioncommander.data.DeckRepository
 import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
+import androidx.navigation.NavController // Make sure you have this
 
 @Composable
-fun CurrentDecksView() {
+fun CurrentDecksView(navController: NavController) {
     // Get the list of saved decks directly from our repository
     val myDecks = DeckRepository.getAllDecks()
 
@@ -43,7 +44,9 @@ fun CurrentDecksView() {
                 // Loop through the list of actual deck objects
                 items(myDecks) { deck ->
                     Button(
-                        onClick = { /* TODO: Handle navigation to a deck detail view */ },
+                        onClick = {
+                            navController.navigate(Screen.DeckDetail.createRoute(deck.id))
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(2f / 1f)
@@ -60,7 +63,7 @@ fun CurrentDecksView() {
 @Preview(showBackground = true)
 @Composable
 fun CurrentDecksViewPreview() {
+    val navController = androidx.navigation.compose.rememberNavController()
     LegionCommanderTheme {
-        CurrentDecksView()
-    }
+        CurrentDecksView(navController = navController)    }
 }

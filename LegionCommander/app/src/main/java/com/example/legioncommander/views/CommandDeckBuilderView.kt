@@ -27,10 +27,6 @@ import com.example.legioncommander.data.Faction
 import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 
-
-// 1. Create a data class to hold info for each button
-
-// 1. Create a data class to hold info for each button
 data class DeckButtonItem(
     val label: String,
     @DrawableRes val imageRes: Int,

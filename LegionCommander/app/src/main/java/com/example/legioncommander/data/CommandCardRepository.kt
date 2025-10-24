@@ -429,4 +429,7 @@ object CommandCardRepository {
             card.factions.isEmpty() || card.factions.contains(faction)
         }
     }
+    fun getAllCards(): List<CommandCard> {
+        return allCards
+    }
 }

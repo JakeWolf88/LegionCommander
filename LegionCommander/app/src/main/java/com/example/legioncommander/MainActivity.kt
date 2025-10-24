@@ -37,6 +37,7 @@ import com.example.legioncommander.ui.theme.StarJediFontFamily
 import com.example.legioncommander.views.CurrentDecksView
 import com.example.legioncommander.views.DeckBuilderView
 import com.example.legioncommander.views.DeckCreationView
+import com.example.legioncommander.views.DeckDetailView
 
 // Sealed class to define the navigation routes for our screens
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
@@ -46,6 +47,10 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector)
     object DeckCreation : Screen("deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
         // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"
+    }
+    // --- CHANGE 1: Add the DeckDetail route definition ---
+    object DeckDetail : Screen("deck_detail/{deckId}", "Deck Detail", Icons.Default.List) {
+        fun createRoute(deckId: Int) = "deck_detail/$deckId"
     }
 }
 
@@ -112,18 +117,35 @@ fun MainScreen() {
                 // Call your new composable from the other file
                 DeckBuilderView(navController)
             }
-            composable(Screen.MyDecks.route) { CurrentDecksView() }
+            composable(Screen.MyDecks.route) {
+                CurrentDecksView(navController = navController)
+            }
             composable(Screen.Settings.route) { SettingsScreen() }
             composable(
                 route = Screen.DeckCreation.route,
                 arguments = listOf(navArgument("factionName") { type = NavType.StringType })
             ) { backStackEntry ->
                 val factionName = backStackEntry.arguments?.getString("factionName")
-                if (factionName != null) {
-                    val selectedFaction = Faction.valueOf(factionName)
-                    // This now calls the powerful Composable in your new file
-                    DeckCreationView(selectedFaction)
+                // It's safer to convert the String to the Enum here
+                val selectedFaction = factionName?.let { Faction.valueOf(it) }
+
+                if (selectedFaction != null) {
+                    DeckCreationView(selectedFaction = selectedFaction)
                 } else {
+                    // If faction is null for some reason, just go back
+                    navController.popBackStack()
+                }
+            }
+            composable(
+                route = Screen.DeckDetail.route,
+                arguments = listOf(navArgument("deckId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                // Retrieve the deckId argument from the route
+                val deckId = backStackEntry.arguments?.getInt("deckId")
+                if (deckId != null) {
+                    DeckDetailView(deckId = deckId)
+                } else {
+                    // If the ID is missing for some reason, go back.
                     navController.popBackStack()
                 }
             }
