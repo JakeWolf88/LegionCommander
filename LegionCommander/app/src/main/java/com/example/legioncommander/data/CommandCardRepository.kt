@@ -27,7 +27,6 @@ object CommandCardRepository {
             1,
             factions = emptyList()
         ),
-
         CommandCard(
             "gen6",
             "Aggression",
@@ -44,6 +43,28 @@ object CommandCardRepository {
         ),
 
         // --- Rebels Cards ---
+        //General
+        CommandCard(
+            "rebgen1",
+            "Sabotaged Communications",
+            R.drawable.sabotaged_communications,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "rebgen2",
+            "Turning The Tide",
+            R.drawable.turning_the_tide,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "rebgen3",
+            "Covering Fire",
+            R.drawable.covering_fire,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
         //Luke
         CommandCard(
             "reb1",
@@ -73,7 +94,7 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.REBELS)
         ),
-        //Lei
+        //Leia
         CommandCard(
             "reb5",
             "Coordinated Bombardment",
@@ -124,13 +145,686 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.REBELS)
         ),
-        //TODO: Add more cards for Rebels
-
+        //Chewbacca
+        CommandCard(
+            "reb12",
+            "Common Cause",
+            R.drawable.common_cause,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb13",
+            "Brains and Brawn",
+            R.drawable.brains_and_brawn,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb14",
+            "Notorious Scoundrels",
+            R.drawable.notorious_scoundrels,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Sabine
+        CommandCard(
+            "reb15",
+            "Explosions!",
+            R.drawable.explosions,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb16",
+            "Symbol Of Rebellion",
+            R.drawable.symbol_of_rebellion,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb17",
+            "Legacy Of Mandalore",
+            R.drawable.legacy_of_mandalore,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb18",
+            "Crack Shot",
+            R.drawable.crack_shot,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb19",
+            "Last Stand",
+            R.drawable.last_stand,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb20",
+            "Volunteer Mission",
+            R.drawable.volunteer_mission,
+             3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //K-2SO
+        CommandCard(
+            "reb21",
+            "Sacrifice",
+            R.drawable.sacrifice,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Lando
+        CommandCard(
+            "reb22",
+            "Corellian Spike",
+            R.drawable.corellian_spike,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb22",
+            "Ace Up His Sleeve",
+            R.drawable.ace_up_his_sleeve,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb23",
+            "Idiots Array",
+            R.drawable.idiots_array,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Rebel Agent
+        CommandCard(
+            "reb27",
+            "BattleField Reconnaissance",
+            R.drawable.battlefield_reconnaissance,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Rebel Officer
+        CommandCard(
+            "reb28",
+            "Diversionary Tactics",
+            R.drawable.diversionary_tactics,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Jyn Erso
+        CommandCard(
+            "reb29",
+            "I Rebel",
+            R.drawable.i_rebel,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb30",
+            "Trust Goes Both Ways",
+            R.drawable.trust_goes_both_ways,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb31",
+            "Rebellions Are Built On Hope",
+            R.drawable.rebellions_are_built_on_hope,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Grogu
+        CommandCard(
+            "reb32",
+            "The Hand Thing",
+            R.drawable.the_hand_thing,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Wicket
+        CommandCard(
+            "reb33",
+            "Close Call",
+            R.drawable.close_call,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb34",
+            "Sneaky Scouting",
+            R.drawable.sneacky_scouting,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb35",
+            "Courageous Counterattack",
+            R.drawable.courageous_counterattack,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //Ahsoka
+        CommandCard(
+            "reb36",
+            "I Am No Jedi",
+            R.drawable.i_am_no_jedi,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb37",
+            "Family Reunion",
+            R.drawable.family_reunion,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb38",
+            "Swift Protector",
+            R.drawable.swift_protector,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb39",
+            "A New Beginning",
+            R.drawable.a_new_beginning,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
 
         // --- Empire Cards ---
-
+        //General
+        CommandCard(
+            "em1",
+            "Convert Observation",
+            R.drawable.covert_observation,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em2",
+            "Pinned Down",
+            R.drawable.pinned_down,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em3",
+            "Coordinated Fire",
+            R.drawable.coordinated_fire,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Darth Vader
+        CommandCard(
+            "em4",
+            "Implacable",
+            R.drawable.implacable,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em5",
+            "Vader's Might",
+            R.drawable.vaders_might,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em6",
+            "New Ways To Motivate Them",
+            R.drawable.new_ways_to_motivate_them,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em7",
+            "Fear And Dead Men",
+            R.drawable.fear_and_dead_men,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em8",
+            "Master Of Evil",
+            R.drawable.master_of_evil,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em9",
+            "Darkness Descends",
+            R.drawable.darkness_descends,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //General Veers
+        CommandCard(
+            "em10",
+            "Maximum Firepower",
+            R.drawable.maximum_firepower,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em11",
+            "Evasive Maneuvers",
+            R.drawable.evasive_maneuvers,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em12",
+            "Imperial Discipline",
+            R.drawable.imperial_discipline,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Director Orson Krennic
+        CommandCard(
+            "em13",
+            "Voracious Ambition",
+            R.drawable.voracious_ambitions,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em14",
+            "Deploy The Garrison",
+            R.drawable.deploy_the_garrison,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em15",
+            "Annihilation Looms",
+            R.drawable.annihilation_looms,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Iden Versio
+        CommandCard(
+            "em16",
+            "Pulse Scan",
+            R.drawable.pulse_scan,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em17",
+            "Incapacitate",
+            R.drawable.incapacitate,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em18",
+            "Concussive Blast",
+            R.drawable.concussive_blast,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em19",
+            "Tactical Strike",
+            R.drawable.tactical_strike,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Agent Kallus
+        CommandCard(
+            "em20",
+            "Face Me!",
+            R.drawable.face_me,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em21",
+            "ISB Investigation",
+            R.drawable.isb_investigation,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em22",
+            "Ruthless Tactics",
+            R.drawable.ruthless_tactics,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em23",
+            "Ruthless Tactics",
+            R.drawable.ruthless_tactics,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //IG-88
+        CommandCard(
+            "em24",
+            "Focused On The Kill",
+            R.drawable.focused_on_the_kill,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em25",
+            "Independent Programming",
+            R.drawable.independent_programming,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Moff Gideon
+        CommandCard(
+            "em26",
+            "Die At My Hand",
+            R.drawable.die_at_my_hand,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em27",
+            "You Have Something I Want",
+            R.drawable.you_have_something_i_want,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em28",
+            "Moment Of Consideration",
+            R.drawable.moment_of_consideration,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Fifth Brother
+        CommandCard(
+            "em29",
+            "You Would Question Me?",
+            R.drawable.you_would_question_me,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em30",
+            "I Care Not For Your Struggles",
+            R.drawable.i_care_not_for_your_struggles,
+            3,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Seventh Sister
+        CommandCard(
+            "em30",
+            "Come And Prove It",
+            R.drawable.come_and_prove_it,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em31",
+            "UnExpected, But Not Unwelcome",
+            R.drawable.unexpected_but_not_unwelcome,
+            2,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        CommandCard(
+            "em32",
+            "You Hide Your Fear Well",
+            R.drawable.you_hide_your_fear_well,
+            3,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Imperial Agent
+        CommandCard(
+            "em33",
+            "Fearsome Oration",
+            R.drawable.fearsome_oration,
+            1,
+            factions = listOf(Faction.EMPIRE)
+        ),
+        //Imperial Officer
+        CommandCard(
+            "em34",
+            "Inexorable Advance",
+            R.drawable.inexorable_advance,
+            3,
+            factions = listOf(Faction.EMPIRE)
+        ),
 
         // --- Republic Cards ---
+        //General
+        CommandCard(
+            "rep1",
+            "Synchronized Offensive",
+            R.drawable.synchronized_offensive,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep2",
+            "Defiance",
+            R.drawable.defiance,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep3",
+            "Get In Position",
+            R.drawable.get_in_position,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep4",
+            "Air Support",
+            R.drawable.air_support,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep5",
+            "Attack Of The Clones",
+            R.drawable.attack_of_the_clones,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep6",
+            "Daring Defense",
+            R.drawable.daring_defense,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Chewbacca
+        CommandCard(
+            "rep7",
+            "Size Matters Not",
+            R.drawable.size_matters_not,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Obi-Wan
+        CommandCard(
+            "rep8",
+            "Hello There",
+            R.drawable.hello_there,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep9",
+            "Knowledge And Defense",
+            R.drawable.knowledge_and_defense,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep10",
+            "General Kenobi",
+            R.drawable.general_kenobi,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Clone Captain Rex
+        CommandCard(
+            "rep11",
+            "Call Me Captain",
+            R.drawable.call_me_captain,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep12",
+            "Take That Clankers",
+            R.drawable.take_that_clankers,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep13",
+            "We're Not Programmed",
+            R.drawable.were_not_programmed,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Padme Amidala
+        CommandCard(
+            "rep14",
+            "Our Fate Is In Your Hands",
+            R.drawable.our_fate_is_in_your_hands,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep15",
+            "Aggressive Negotiations",
+            R.drawable.aggressive_negotiations,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep16",
+            "Diplomatic Cover",
+            R.drawable.diplomatic_cover,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Anakin Skywalker
+        CommandCard(
+            "rep17",
+            "This Is Where The Fun Beings Begin",
+            R.drawable.this_is_where_the_fun_beings,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep18",
+            "You Underestimate My Power",
+            R.drawable.you_underestimate_my_power,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep19",
+            "General Skywalker",
+            R.drawable.general_skywalker,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Yoda
+        CommandCard(
+            "rep20",
+            "Size Matters Not",
+            R.drawable.size_matters_not,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep21",
+            "There Is No Try",
+            R.drawable.there_is_no_try,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep22",
+            "Luminous Beings Are We",
+            R.drawable.luminous_beings_are_we,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Clone Commander Cody
+        CommandCard(
+            "rep23",
+            "Bring It Down",
+            R.drawable.bring_it_down,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep24",
+            "Have I Ever Let You Down",
+            R.drawable.have_i_ever_let_you_down,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep25",
+            "Combined Arms",
+            R.drawable.combined_arms,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep26",
+            "Defiance",
+            R.drawable.defiance,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Ahsoka Tano
+        CommandCard(
+            "rep27",
+            "You Are Beaten",
+            R.drawable.you_are_beaten,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep28",
+            "Revenge Is Not The Jedi Way",
+            R.drawable.revenge_is_not_the_jedi_way,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep29",
+            "I Go Where I'm Needed",
+            R.drawable.i_go_where_im_needed,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        //Jedi Knight General
+        CommandCard(
+            "rep30",
+            "Flow Of The Force",
+            R.drawable.flow_of_the_force,
+            1,
+            factions = listOf(Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "rep31",
+            "Affirmative General",
+            R.drawable.affirmative_general,
+            3,
+            factions = listOf(Faction.REPUBLIC)
+        ),
 
         // --- CIS Cards ---
         //Generic
@@ -289,10 +983,28 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.SEPARATISTS)
         ),
-
-
-
-
+        //General Grevious On Bike
+        CommandCard(
+            "cis22",
+            "Full Throttle",
+            R.drawable.full_throttle,
+            3,
+            factions = listOf(Faction.SEPARATISTS)
+        ),
+        CommandCard(
+            "cis23",
+            "Pincer Attack",
+            R.drawable.pincer_attack,
+            2,
+            factions = listOf(Faction.SEPARATISTS)
+        ),
+        CommandCard(
+            "cis24",
+            "I'll Do It Myself",
+            R.drawable.ill_do_it_myself,
+            1,
+            factions = listOf(Faction.SEPARATISTS)
+        ),
 
         // --- Shadow Collective Cards ---
         //Darth Maul
@@ -340,9 +1052,7 @@ object CommandCardRepository {
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
 
-
         // --- Shadow Collective & Empire Cards ---
-
 
         // --- Shadow Collective & CIS ---
         //Darth Maul
@@ -413,8 +1123,120 @@ object CommandCardRepository {
             factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.SEPARATISTS, Faction.EMPIRE)
         ),
 
+        //Empire and Rebels
+        //Bobba Fett
+        CommandCard(
+            "reb-em1",
+            "Whipcord Launcher",
+            R.drawable.whipcord_launcher,
+            1,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
+        CommandCard(
+            "reb-em2",
+            "Z-6 Jetpack Rocket",
+            R.drawable.z6_jetpack_rocket,
+            3,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
+        CommandCard(
+            "reb-em3",
+            "A Simply Man",
+            R.drawable.a_simple_man,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb-em4",
+            "Making His Way In The Galaxy",
+            R.drawable.making_his_way_in_the_galaxy,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb-em5",
+            "Rule With Respect",
+            R.drawable.rule_with_respect,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
+        //IG-11
+        CommandCard(
+            "reb-em6",
+            "Mechanical Carnage",
+            R.drawable.mechanical_carnage,
+            1,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
+        CommandCard(
+            "reb-em7",
+            "A Machine Made For Killing",
+            R.drawable.a_machine_made_for_killing,
+            2,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
+        CommandCard(
+            "reb-em8",
+            "Anti-Capture Protocols",
+            R.drawable.anti_capture_protocols,
+            3,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
+        //Din Jarin
+        CommandCard(
+            "reb-em9",
+            "This Is The Way",
+            R.drawable.this_is_the_way,
+            1,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
+        CommandCard(
+            "reb-em10",
+            "I Like Those Odds",
+            R.drawable.i_like_those_odds,
+            2,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
+        CommandCard(
+            "reb-em11",
+            "Whistling Birds",
+            R.drawable.whistling_birds,
+            3,
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
+        ),
 
-        // ... Add cards for Empire, Republic, etc. here
+        //Rebels and Republic
+        //R2D2
+        CommandCard(
+            "rep-reb1",
+            "Blast Off",
+            R.drawable.blast_off,
+            1,
+            factions = listOf(Faction.REBELS, Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "reb-reb2",
+            "Impromptu Immolation",
+            R.drawable.impromptu_immolation,
+            2,
+            factions = listOf(Faction.REBELS, Faction.REPUBLIC)
+        ),
+        CommandCard(
+            "reb-reb3",
+            "Smoke Screen",
+            R.drawable.smoke_screen,
+            3,
+            factions = listOf(Faction.REBELS, Faction.REPUBLIC)
+        ),
+        //The Bad Batch
+        CommandCard(
+            "reb-reb4",
+            "We Do What We Do",
+            R.drawable.we_do_what_we_do,
+            3,
+            factions = listOf(Faction.REBELS, Faction.REPUBLIC)
+        ),
+
     )
 
     /**

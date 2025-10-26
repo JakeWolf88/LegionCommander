@@ -44,8 +44,9 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.legioncommander.data.CommandDeck
-import com.example.legioncommander.data.DeckRepository
+import com.example.legioncommander.viewmodels.DecksViewModel
 
 // 1. Data class to represent a command card
 data class CommandCard(
@@ -56,7 +57,11 @@ data class CommandCard(
 )
 
 @Composable
-fun DeckCreationView(selectedFaction: Faction) { // Changed parameter name for clarity
+fun DeckCreationView(
+    selectedFaction: Faction,
+    viewModel: DecksViewModel = viewModel() // Get the same ViewModel instance
+
+) { // Changed parameter name for clarity
     val cards = CommandCardRepository.getCardsForFaction(selectedFaction)    // A state to keep track of the IDs of selected cards
     val standingOrdersCardId = "gen4"
     val selectedCards = remember { mutableStateListOf(standingOrdersCardId) }
@@ -118,11 +123,11 @@ fun DeckCreationView(selectedFaction: Faction) { // Changed parameter name for c
                             name = deckName,
                             cardIds = selectedCards.toList(), // Convert the mutable list to a fixed list
                             faction = selectedFaction
+
                         )
 
-                        // 2. Save it to the repository
-                        DeckRepository.saveDeck(newDeck)
-
+                        // 2. Save it to the repositor
+                        viewModel.insert(newDeck)
                         showNamePrompt.value = false
                         // TODO: Navigate to the decks list or show a success message
                     },

@@ -15,6 +15,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,43 +31,60 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.legioncommander.data.CommandCardRepository
-import com.example.legioncommander.data.DeckRepository
 import com.example.legioncommander.ui.theme.StarJediFontFamily
+import com.example.legioncommander.viewmodels.DeckDetailViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun DeckDetailView(deckId: Int) {
-    val deck = DeckRepository.getDeckById(deckId)
+fun DeckDetailView(
+    deckId: Int,
+    // Instantiate the ViewModel for this screen
+    viewModel: DeckDetailViewModel = viewModel()
+) {
+    // --- THIS IS THE FIX ---
+    // 1. Trigger the data load when the view is first composed (or if deckId changes)
+    LaunchedEffect(deckId) {
+        viewModel.loadDeck(deckId)
+    }
+
+    // 2. Collect the deck from the ViewModel's StateFlow.
+    // `collectAsState` makes your UI reactively update when the data is loaded.
+    val deck by viewModel.deck.collectAsState()
+
+    // --- THE REST OF YOUR CODE STAYS LARGELY THE SAME ---
     val allCards = CommandCardRepository.getAllCards()
 
-    if (deck == null) {
+    // Use a local variable for the deck to handle the initial null state.
+    val currentDeck = deck
+
+    if (currentDeck == null) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Deck not found!", fontFamily = StarJediFontFamily)
+            // You can add a loading indicator here if you want
+            Text("Loading Deck...", fontFamily = StarJediFontFamily)
         }
         return
     }
 
-    val cardsInDeck = allCards.filter { card -> deck.cardIds.contains(card.id) }
+    val cardsInDeck = allCards.filter { card -> currentDeck.cardIds.contains(card.id) }
         .sortedBy { it.pips }
 
     val pagerState = rememberPagerState(pageCount = { cardsInDeck.size })
-
-    // --- CHANGE 1: State to track if the view is zoomed ---
     var isZoomed by remember { mutableStateOf(false) }
-
-    // --- CHANGE 2: Animate padding based on the zoomed state ---
     val horizontalPadding by animateDpAsState(
         targetValue = if (isZoomed) 0.dp else 32.dp,
         label = "Horizontal Padding Animation"
     )
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = deck.name,
+            text = currentDeck.name,
             fontFamily = StarJediFontFamily,
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp
@@ -116,7 +135,9 @@ fun DeckDetailView(deckId: Int) {
                         painter = painterResource(id = card.imageRes),
                         contentDescription = card.title,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(8.dp))
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(8.dp))
                     )
                 }
             }

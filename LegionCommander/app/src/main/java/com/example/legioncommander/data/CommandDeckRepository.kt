@@ -1,38 +1,29 @@
 package com.example.legioncommander.data
 
-// This object will hold the list of all created decks while the app is running.
-object DeckRepository {
+import kotlinx.coroutines.flow.Flow
 
-    // Create a private mutable list to hold the decks. This is our "in-memory" database.
-    private val _decks = mutableListOf<CommandDeck>()
+/**
+ * Repository that abstracts access to the deck data source.
+ * It now takes the DAO as a dependency.
+ */
+class DeckRepository(private val commandDeckDao: CommandDeckDao) {
 
-    // Expose an immutable version of the list for other parts of the app to read safely.
-    val decks: List<CommandDeck> = _decks
+    // This property now directly exposes the Flow from the DAO.
+    // The UI will collect this Flow to get live updates from the database.
+    val allDecks: Flow<List<CommandDeck>> = commandDeckDao.getAllDecks()
 
     /**
-     * Saves a new command deck to our list.
-     * @param deck The CommandDeck to be saved.
+     * Inserts a new deck into the database via the DAO.
+     * The 'suspend' keyword indicates this should be called from a coroutine.
      */
-    fun saveDeck(deck: CommandDeck) {
-        // Here you could add logic to check for duplicate names if you wanted.
-        _decks.add(deck)
-        println("Deck '${deck.name}' saved! Total decks are now: ${_decks.size}")
+    suspend fun insert(deck: CommandDeck) {
+        commandDeckDao.insertDeck(deck)
     }
 
     /**
-     * Retrieves all saved decks.
-     * @return A list of all CommandDeck objects.
+     * Retrieves a single deck by its ID from the database.
      */
-    fun getAllDecks(): List<CommandDeck> {
-        return _decks
-    }
-
-    /**
-     * Retrieves a single deck by its ID.
-     * @param id The unique ID of the deck.
-     * @return The CommandDeck if found, otherwise null.
-     */
-    fun getDeckById(id: Int): CommandDeck? {
-        return _decks.find { it.id == id }
+    suspend fun getDeckById(id: Int): CommandDeck? {
+        return commandDeckDao.getDeckById(id)
     }
 }
