@@ -1,6 +1,7 @@
 package com.example.legioncommander.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -21,4 +22,7 @@ interface CommandDeckDao {
     // Flow is a modern way to observe data changes automatically.
     @Query("SELECT * FROM command_decks ORDER BY name ASC")
     fun getAllDecks(): Flow<List<CommandDeck>>
+
+    @Delete
+    suspend fun deleteDeck(deck: CommandDeck)
 }

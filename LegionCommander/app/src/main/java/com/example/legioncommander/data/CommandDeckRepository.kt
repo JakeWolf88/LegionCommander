@@ -26,4 +26,8 @@ class DeckRepository(private val commandDeckDao: CommandDeckDao) {
     suspend fun getDeckById(id: Int): CommandDeck? {
         return commandDeckDao.getDeckById(id)
     }
+
+    suspend fun delete(deck: CommandDeck) {
+        commandDeckDao.deleteDeck(deck)
+    }
 }

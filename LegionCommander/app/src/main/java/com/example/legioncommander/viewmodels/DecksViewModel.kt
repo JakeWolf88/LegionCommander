@@ -42,4 +42,8 @@ class DecksViewModel(application: Application) : AndroidViewModel(application) {
     fun insert(deck: CommandDeck) = viewModelScope.launch {
         repository.insert(deck)
     }
+
+    fun delete(deck: CommandDeck) = viewModelScope.launch {
+        repository.delete(deck)
+    }
 }
