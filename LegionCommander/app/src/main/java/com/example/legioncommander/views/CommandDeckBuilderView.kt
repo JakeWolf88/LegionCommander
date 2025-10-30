@@ -30,13 +30,12 @@ import com.example.legioncommander.ui.theme.StarJediFontFamily
 data class DeckButtonItem(
     val label: String,
     @DrawableRes val imageRes: Int,
-    val factionIdentifier: Faction // Add an identifier for the route
+    val factionIdentifier: Faction
 )
 
 @Composable
 fun DeckBuilderView(navController: NavController) {
-    // 2. Create a list of DeckButtonItem objects
-    //    (Replace R.drawable placeholders with your actual image files)
+
     val deckButtons = listOf(
         DeckButtonItem("Rebels Command Deck", R.drawable.rebel_logo, Faction.REBELS),
         DeckButtonItem("Republic Command Deck", R.drawable.republic_logo, Faction.REPUBLIC),

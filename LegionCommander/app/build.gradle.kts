@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.lifecycle.viewmodel.compose) // Or your current version
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.adapters)

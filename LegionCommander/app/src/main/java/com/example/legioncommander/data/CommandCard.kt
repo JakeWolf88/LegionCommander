@@ -2,7 +2,6 @@ package com.example.legioncommander.data
 
 import androidx.annotation.DrawableRes
 
-
 // Enum to represent the different factions in a type-safe way
 enum class Faction {
     REPUBLIC,

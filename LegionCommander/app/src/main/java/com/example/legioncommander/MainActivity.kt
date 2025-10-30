@@ -48,7 +48,7 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector)
         // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"
     }
-    // --- CHANGE 1: Add the DeckDetail route definition ---
+
     object DeckDetail : Screen("deck_detail/{deckId}", "Deck Detail", Icons.Default.List) {
         fun createRoute(deckId: Int) = "deck_detail/$deckId"
     }
@@ -68,10 +68,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-    // NavController manages the navigation within a NavHost. [1]
     val navController = rememberNavController()
 
-    // List of our main screens
     val items = listOf(
         Screen.DeckBuilder,
         Screen.MyDecks,
@@ -82,7 +80,6 @@ fun MainScreen() {
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar {
-                // Get the current back stack entry to determine the current route. [2]
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
 
@@ -93,9 +90,6 @@ fun MainScreen() {
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {
                             navController.navigate(screen.route) {
-                                // Pop up to the start destination of the graph to
-                                // avoid building up a large stack of destinations
-                                // on the back stack as users select items
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true
                                 }
@@ -111,7 +105,6 @@ fun MainScreen() {
             }
         }
     ) { innerPadding ->
-        // NavHost is a container that displays the current destination. [13]
         NavHost(navController, startDestination = Screen.DeckBuilder.route, Modifier.padding(innerPadding)) {
             composable(Screen.DeckBuilder.route) {
                 // Call your new composable from the other file

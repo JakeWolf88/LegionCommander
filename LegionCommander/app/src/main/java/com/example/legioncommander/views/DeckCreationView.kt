@@ -118,7 +118,6 @@ fun DeckCreationView(
                 },
                 confirmButton = {
                     TextButton(    onClick = {
-                        // 1. Create the new CommandDeck object
                         val newDeck = CommandDeck(
                             name = deckName,
                             cardIds = selectedCards.toList(), // Convert the mutable list to a fixed list
@@ -126,12 +125,9 @@ fun DeckCreationView(
 
                         )
 
-                        // 2. Save it to the repositor
                         viewModel.insert(newDeck)
                         showNamePrompt.value = false
-                        // TODO: Navigate to the decks list or show a success message
                     },
-                        // Only enable the save button if a name has been entered
                         enabled = deckName.isNotBlank()
                     ) {
                         Text("Save")
@@ -152,7 +148,6 @@ fun DeckCreationView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // The selectable grid of cards
         LazyVerticalGrid(
             columns = GridCells.Fixed(2), // We'll display 2 cards per row
             horizontalArrangement = Arrangement.spacedBy(8.dp),

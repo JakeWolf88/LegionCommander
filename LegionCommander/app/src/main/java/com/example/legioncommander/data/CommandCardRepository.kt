@@ -2,10 +2,8 @@ package com.example.legioncommander.data
 
 import com.example.legioncommander.R
 
-// A simple object to act as our card database/repository.
 object CommandCardRepository {
 
-    // 1. A master list containing ALL cards in the game.
     private val allCards = listOf(
         // --- Generic Cards (faction is null) ---
         //Generic
@@ -1052,8 +1050,6 @@ object CommandCardRepository {
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
 
-        // --- Shadow Collective & Empire Cards ---
-
         // --- Shadow Collective & CIS ---
         //Darth Maul
         CommandCard(
@@ -1215,14 +1211,14 @@ object CommandCardRepository {
             factions = listOf(Faction.REBELS, Faction.REPUBLIC)
         ),
         CommandCard(
-            "reb-reb2",
+            "rep-reb2",
             "Impromptu Immolation",
             R.drawable.impromptu_immolation,
             2,
             factions = listOf(Faction.REBELS, Faction.REPUBLIC)
         ),
         CommandCard(
-            "reb-reb3",
+            "rep-reb3",
             "Smoke Screen",
             R.drawable.smoke_screen,
             3,
@@ -1230,20 +1226,30 @@ object CommandCardRepository {
         ),
         //The Bad Batch
         CommandCard(
-            "reb-reb4",
+            "rep-reb4",
             "We Do What We Do",
             R.drawable.we_do_what_we_do,
             3,
             factions = listOf(Faction.REBELS, Faction.REPUBLIC)
         ),
 
+        //Empire, Rebels, Republic, CIS
+        CommandCard(
+            "em-reb-rep-cis1",
+            "That's Just Good Business",
+            R.drawable.thats_just_good_business,
+            2,
+            factions = listOf(Faction.EMPIRE, Faction.REBELS, Faction.REPUBLIC, Faction.SEPARATISTS)
+        ),
+        CommandCard(
+            "em-reb-rep-cis2",
+            "Stories So Many Of Them True",
+            R.drawable.stories_so_many_of_them_true,
+            2,
+            factions = listOf(Faction.EMPIRE, Faction.REBELS, Faction.REPUBLIC, Faction.SEPARATISTS)
+        ),
     )
 
-    /**
-     * This is the key function. It will be called by your DeckCreationView.
-     * It returns a list containing cards specific to the given faction
-     * PLUS all the generic cards.
-     */
     fun getCardsForFaction(faction: Faction): List<CommandCard> {
         // 2. Filter the master list.
         return allCards.filter { card ->
@@ -1251,6 +1257,7 @@ object CommandCardRepository {
             card.factions.isEmpty() || card.factions.contains(faction)
         }
     }
+
     fun getAllCards(): List<CommandCard> {
         return allCards
     }
