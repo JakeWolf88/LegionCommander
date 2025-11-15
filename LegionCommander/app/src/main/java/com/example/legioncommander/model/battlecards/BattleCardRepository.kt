@@ -106,6 +106,70 @@ object BattleCardRepository {
         return allCards.filter { card -> card.cardType == cardType }
     }
 
+    fun getReconDeck(): List<BattleCard> {
+        return listOf(
+            //Primaries
+            BattleCard(
+                id = "RCTP",
+                title = "Close The Pocket",
+                R.drawable.recon_close_the_pocket,
+                cardType = BattleCardType.PRIMARY
+            ),
+            BattleCard(
+                id = "RITS",
+                title = "Intercept The Signals",
+                R.drawable.recon_intercept_the_signals,
+                cardType = BattleCardType.PRIMARY
+            ),
+            BattleCard(
+                id = "RBA",
+                title = "Bunker Assault",
+                R.drawable.recon_bunker_assault,
+                cardType = BattleCardType.PRIMARY
+            ),
+
+            //Secondary
+            BattleCard(
+                id = "RBTH",
+                title = "Bring Them To Heel",
+                R.drawable.recon_bring_them_to_heel,
+                cardType = BattleCardType.SECONDARY
+            ),
+            BattleCard(
+                id = "RRM",
+                title = "Recon Mission",
+                R.drawable.recon_recon_mission,
+                cardType = BattleCardType.SECONDARY
+            ),
+            BattleCard(
+                id = "RSC",
+                title = "Surface Scan",
+                R.drawable.recon_surface_scan,
+                cardType = BattleCardType.SECONDARY
+            ),
+
+            //Advantages
+            BattleCard(
+                id = "RAI",
+                title = "Advanced Intel",
+                R.drawable.advanced_intel,
+                cardType = BattleCardType.ADVANTAGE
+            ),
+            BattleCard(
+                id = "RCD",
+                title = "Cunning Deployment",
+                R.drawable.cunning_deployment,
+                cardType = BattleCardType.ADVANTAGE
+            ),
+            BattleCard(
+                id = "RFP",
+                title = "Fortified Position",
+                R.drawable.fortified_position,
+                cardType = BattleCardType.ADVANTAGE
+            ),
+        )
+    }
+
     fun getAllCards(): List<BattleCard> {
         return allCards
     }

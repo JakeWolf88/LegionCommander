@@ -67,8 +67,7 @@ fun CommandDeckDetailView(
         .sortedBy { it.pips }
 
     val pagerState = rememberPagerState(pageCount = { cardsInDeck.size })
-    val horizontalPadding by animateDpAsState(if (isZoomed) 0.dp else 32.dp, label = "")
-
+    val horizontalPadding by animateDpAsState(if (isZoomed) 0.dp else 48.dp, label = "")
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -103,7 +102,7 @@ fun CommandDeckDetailView(
                 state = pagerState,
                 contentPadding = PaddingValues(
                     horizontal = horizontalPadding,
-                    vertical = 66.dp // Adjust this value as needed
+                    vertical = 0.dp // Adjust this value as needed
                 ),
                 modifier = Modifier
                     .fillMaxSize()
@@ -169,34 +168,39 @@ private fun SwipeableCard(
     LaunchedEffect(isUsed) {
         swipeableState.animateTo(if (isUsed) SwipeState.USED else SwipeState.NORMAL)
     }
-
     Box(
+        contentAlignment = Alignment.Center, // This will center the card horizontally
         modifier = Modifier
-            .fillMaxHeight()
-            .aspectRatio(0.7f)
-            .padding(vertical = 8.dp)
-            .swipeable(
-                state = swipeableState,
-                anchors = anchors,
-                orientation = Orientation.Vertical,
-                thresholds = { _, _ -> FractionalThreshold(0.5f) } // Swipe 50% to trigger
-            )
-            .offset { IntOffset(0, swipeableState.offset.value.roundToInt()) }
+            .fillMaxSize() // Use fillMaxSize to occupy the pager's item space
     ) {
-        Card(modifier = Modifier.fillMaxSize()) {
-            Image(
-                painter = painterResource(id = card.imageRes),
-                contentDescription = card.title,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(RoundedCornerShape(8.dp)),
-                colorFilter = if (isUsed) {
-                    ColorFilter.tint(Color.Red.copy(alpha = 0.99f), BlendMode.Multiply)
-                } else {
-                    null
-                }
-            )
+        Box(
+            modifier = Modifier
+                .fillMaxHeight()
+                .aspectRatio(0.7f)
+                .padding(vertical = 8.dp)
+                .swipeable(
+                    state = swipeableState,
+                    anchors = anchors,
+                    orientation = Orientation.Vertical,
+                    thresholds = { _, _ -> FractionalThreshold(0.5f) } // Swipe 50% to trigger
+                )
+                .offset { IntOffset(0, swipeableState.offset.value.roundToInt()) }
+        ) {
+            Card(modifier = Modifier.fillMaxSize()) {
+                Image(
+                    painter = painterResource(id = card.imageRes),
+                    contentDescription = card.title,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(8.dp)),
+                    colorFilter = if (isUsed) {
+                        ColorFilter.tint(Color.Red.copy(alpha = 0.99f), BlendMode.Multiply)
+                    } else {
+                        null
+                    }
+                )
+            }
         }
     }
 }

@@ -191,7 +191,7 @@ fun MainScreen() {
 @Composable
 fun SettingsScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "List Analyzer", fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
+        Text(text = "List Analyzer, coming soon!", fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
     }
 }
 

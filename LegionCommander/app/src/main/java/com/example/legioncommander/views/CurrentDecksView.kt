@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +38,7 @@ fun CurrentDecksView(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
         // --- Display Command Decks ---
@@ -52,7 +55,9 @@ fun CurrentDecksView(
         }
         else
         {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            LazyColumn(
+                modifier = Modifier.height(200.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(commandDecks) { deck ->
                     DeckItem(
                         deckName = deck.name,
@@ -69,7 +74,7 @@ fun CurrentDecksView(
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp)) // Add space between the two lists
+        Spacer(modifier = Modifier.height(24.dp))
 
         // --- Display Battle Decks ---
         Text(
@@ -85,7 +90,9 @@ fun CurrentDecksView(
         }
         else
         {
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            LazyColumn(
+                modifier = Modifier.height(200.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(battleDecks) { deck ->
                     DeckItem(
                         deckName = deck.name,
