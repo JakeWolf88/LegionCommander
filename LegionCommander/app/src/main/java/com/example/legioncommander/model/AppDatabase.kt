@@ -1,14 +1,15 @@
-package com.example.legioncommander.data
+package com.example.legioncommander.model
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters // Make sure this is imported
+import androidx.room.TypeConverters
+import com.example.legioncommander.model.battlecards.BattleDeck
+import com.example.legioncommander.model.commandcards.CommandDeck
 
-// Add this annotation to tell Room about your new Converters class
 @TypeConverters(Converters::class)
-@Database(entities = [CommandDeck::class], version = 1) // Assuming version 1 for now
+@Database(entities = [CommandDeck::class, BattleDeck::class], version = 2) // Assuming version 1 for now
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun commandDeckDao(): CommandDeckDao
@@ -23,7 +24,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "legion_commander_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration(true)
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -1,4 +1,4 @@
-package com.example.legioncommander.data
+package com.example.legioncommander.model.commandcards
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

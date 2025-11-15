@@ -23,7 +23,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.legioncommander.R
 import com.example.legioncommander.Screen
-import com.example.legioncommander.data.Faction
+import com.example.legioncommander.model.commandcards.Faction
 import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 
@@ -41,12 +41,15 @@ fun DeckBuilderView(navController: NavController) {
         DeckButtonItem("Republic Command Deck", R.drawable.republic_logo, Faction.REPUBLIC),
         DeckButtonItem("CIS Command Deck", R.drawable.cis_logo, Faction.SEPARATISTS),
         DeckButtonItem("Empire Command Deck", R.drawable.empire_logo, Faction.EMPIRE),
-        DeckButtonItem("Shadow Collective Command Deck", R.drawable.shadow_collective_logo, Faction.SHADOW_COLLECTIVE)
+        DeckButtonItem("Shadow Collective Command Deck", R.drawable.shadow_collective_logo, Faction.SHADOW_COLLECTIVE),
+        DeckButtonItem("Battle Deck", R.drawable.battle_deck_icon, Faction.BATTLE_DECK),
+        //TODO: Create some more decks
+        //DeckButtonItem("Tour Of Duty Deck", R.drawable.tod_icon, Faction.BATTLE_DECK),
+        //DeckButtonItem("Recon Deck", R.drawable.recon_icon, Faction.BATTLE_DECK),
     )
 
     Column {
-        // Use a Box to center the grid on the screen.
-        Text("Create Your Command Deck", Modifier.padding(16.dp), fontSize = 24.sp, fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
+        Text("Create Your Deck", Modifier.padding(16.dp), fontSize = 24.sp, fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
 
         Box(
             modifier = Modifier
@@ -63,15 +66,19 @@ fun DeckBuilderView(navController: NavController) {
                 items(deckButtons) { item ->
                     Button(
                         onClick = {
-                            val faction: Faction = item.factionIdentifier
-                            val factionName: String = faction.name
-                            val route: String = Screen.DeckCreation.createRoute(factionName)
-                            navController.navigate(route)
+                            if (item.factionIdentifier == Faction.BATTLE_DECK) {
+                                // Navigate to the new generic creation view
+                                navController.navigate(Screen.BattleDeckCreation.route)
+                            } else {
+                                // Existing navigation for specific factions
+                                val factionName: String = item.factionIdentifier.name
+                                val route: String = Screen.DeckCreation.createRoute(factionName)
+                                navController.navigate(route)
+                            }
                         },
                         shape = RectangleShape,
                         modifier = Modifier.aspectRatio(1f / 1f)
                     ) {
-                        // 3. Use a Column to stack the Image and Text vertically
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center,
@@ -80,11 +87,12 @@ fun DeckBuilderView(navController: NavController) {
                             Image(
                                 painter = painterResource(id = item.imageRes),
                                 contentDescription = item.label, // For accessibility
-                                modifier = Modifier.size(64.dp), // Adjust size as needed
+                                modifier = Modifier.size(125.dp), // Adjust size as needed
                                 contentScale = ContentScale.Fit
                             )
                             Spacer(modifier = Modifier.height(8.dp)) // Space between image and text
                             Text(
+                                fontFamily = StarJediFontFamily,
                                 text = item.label,
                                 textAlign = TextAlign.Center // Center the text if it wraps
                             )

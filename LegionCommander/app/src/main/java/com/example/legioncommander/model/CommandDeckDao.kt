@@ -1,10 +1,12 @@
-package com.example.legioncommander.data
+package com.example.legioncommander.model
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.legioncommander.model.battlecards.BattleDeck
+import com.example.legioncommander.model.commandcards.CommandDeck
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,10 +21,22 @@ interface CommandDeckDao {
     suspend fun getDeckById(deckId: Int): CommandDeck?
 
     // Gets all decks from the table, ordered by name.
-    // Flow is a modern way to observe data changes automatically.
     @Query("SELECT * FROM command_decks ORDER BY name ASC")
     fun getAllDecks(): Flow<List<CommandDeck>>
 
     @Delete
     suspend fun deleteDeck(deck: CommandDeck)
+
+    // --- BattleDeck Functions
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertBattleDeck(deck: BattleDeck)
+
+    @Query("SELECT * FROM battle_decks ORDER BY name ASC")
+    fun getAllBattleDecks(): Flow<List<BattleDeck>>
+
+    @Query("SELECT * FROM battle_decks WHERE id = :deckId")
+    fun getBattleDeckById(deckId: Int): BattleDeck?
+
+    @Delete
+    suspend fun deleteBattleDeck(deck: BattleDeck)
 }

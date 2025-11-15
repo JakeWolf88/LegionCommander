@@ -1,5 +1,7 @@
-package com.example.legioncommander.data
+package com.example.legioncommander.model
 
+import com.example.legioncommander.model.battlecards.BattleDeck
+import com.example.legioncommander.model.commandcards.CommandDeck
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -12,6 +14,10 @@ class DeckRepository(private val commandDeckDao: CommandDeckDao) {
     // The UI will collect this Flow to get live updates from the database.
     val allDecks: Flow<List<CommandDeck>> = commandDeckDao.getAllDecks()
 
+    val allCommandDecks: Flow<List<CommandDeck>> = commandDeckDao.getAllDecks()
+    val allBattleDecks: Flow<List<BattleDeck>> = commandDeckDao.getAllBattleDecks()
+
+    //Command Decks
     /**
      * Inserts a new deck into the database via the DAO.
      * The 'suspend' keyword indicates this should be called from a coroutine.
@@ -19,7 +25,6 @@ class DeckRepository(private val commandDeckDao: CommandDeckDao) {
     suspend fun insert(deck: CommandDeck) {
         commandDeckDao.insertDeck(deck)
     }
-
     /**
      * Retrieves a single deck by its ID from the database.
      */
@@ -30,4 +35,18 @@ class DeckRepository(private val commandDeckDao: CommandDeckDao) {
     suspend fun delete(deck: CommandDeck) {
         commandDeckDao.deleteDeck(deck)
     }
+
+    //Battle Decks
+    suspend fun insertBattleDeck(deck: BattleDeck) {
+        commandDeckDao.insertBattleDeck(deck)
+    }
+
+    suspend fun getBattleDeckById(id: Int): BattleDeck? {
+        return commandDeckDao.getBattleDeckById(id)
+    }
+
+    suspend fun deleteBattleDeck(deck: BattleDeck) {
+        commandDeckDao.deleteBattleDeck(deck)
+    }
+
 }

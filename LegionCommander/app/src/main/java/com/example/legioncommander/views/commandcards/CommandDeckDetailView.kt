@@ -1,4 +1,4 @@
-package com.example.legioncommander.views
+package com.example.legioncommander.views.commandcards
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.* // Important: Import from material for swipeable
+import androidx.compose.material.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,19 +33,19 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.legioncommander.data.CommandCard
-import com.example.legioncommander.data.CommandCardRepository
+import com.example.legioncommander.model.commandcards.CommandCard
+import com.example.legioncommander.model.commandcards.CommandCardRepository
 import com.example.legioncommander.ui.theme.StarJediFontFamily
-import com.example.legioncommander.viewmodels.DeckDetailViewModel
+import com.example.legioncommander.viewmodels.CommandDeckDetailViewModel
 import kotlin.math.roundToInt
 
 private enum class SwipeState { NORMAL, USED }
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class) // Add ExperimentalMaterialApi
 @Composable
-fun DeckDetailView(
+fun CommandDeckDetailView(
     deckId: Int,
-    viewModel: DeckDetailViewModel = viewModel()
+    viewModel: CommandDeckDetailViewModel = viewModel()
 ) {
     LaunchedEffect(deckId) {
         viewModel.loadDeck(deckId)
@@ -53,8 +53,7 @@ fun DeckDetailView(
     val deck by viewModel.deck.collectAsState()
     val allCards = CommandCardRepository.getAllCards()
     val currentDeck = deck
-
-    val usedCardIds = remember { mutableStateListOf<String>() }
+    val usedCardIds = viewModel.usedCardIds
     var isZoomed by remember { mutableStateOf(false) }
 
     if (currentDeck == null) {
@@ -102,7 +101,10 @@ fun DeckDetailView(
 
             HorizontalPager(
                 state = pagerState,
-                contentPadding = PaddingValues(horizontal = horizontalPadding),
+                contentPadding = PaddingValues(
+                    horizontal = horizontalPadding,
+                    vertical = 66.dp // Adjust this value as needed
+                ),
                 modifier = Modifier
                     .fillMaxSize()
                     .clickable(
@@ -114,17 +116,11 @@ fun DeckDetailView(
                 val card = cardsInDeck[pageIndex]
                 val isUsed = usedCardIds.contains(card.id)
 
-                // 2. Use our new SwipeableCard composable for cleaner code
                 SwipeableCard(
                     card = card,
                     isUsed = isUsed,
                     onStateChange = {
-                        // This lambda updates our central state list
-                        if (isUsed) {
-                            usedCardIds.remove(card.id)
-                        } else {
-                            usedCardIds.add(card.id)
-                        }
+                        viewModel.toggleCardUsedState(card.id)
                     }
                 )
             }
@@ -140,7 +136,6 @@ fun DeckDetailView(
     }
 }
 
-
 /**
  * A private composable that manages the swipe state for a single card.
  */
@@ -151,24 +146,26 @@ private fun SwipeableCard(
     isUsed: Boolean,
     onStateChange: () -> Unit
 ) {
-    val swipeDistance = -150.dp // How far up the card moves
+    val swipeDistance = (-150).dp // How far up the card moves
     val swipeDistancePx = with(LocalDensity.current) { swipeDistance.toPx() }
 
     // Anchors define resting points: 0f for normal, and a negative pixel value for "up"
     val anchors = mapOf(0f to SwipeState.NORMAL, swipeDistancePx to SwipeState.USED)
 
     // The state object for the swipeable modifier
+// The state object for the swipeable modifier
     val swipeableState = rememberSwipeableState(
         initialValue = if (isUsed) SwipeState.USED else SwipeState.NORMAL,
-        confirmStateChange = {
-            // This is called after a swipe. We trigger our state change here.
-            onStateChange()
+        confirmStateChange = { newState ->
+            val changed = (newState == SwipeState.USED && !isUsed) || (newState == SwipeState.NORMAL && isUsed)
+            if (changed) {
+                onStateChange()
+            }
             true
         }
     )
 
-    // This effect ensures if the state changes from elsewhere (e.g. a "reset" button),
-    // the card animates to the correct position.
+// This effect is what synchronizes the swipeable state with the `isUsed` state
     LaunchedEffect(isUsed) {
         swipeableState.animateTo(if (isUsed) SwipeState.USED else SwipeState.NORMAL)
     }
@@ -178,7 +175,6 @@ private fun SwipeableCard(
             .fillMaxHeight()
             .aspectRatio(0.7f)
             .padding(vertical = 8.dp)
-            // 4. The swipeable modifier itself
             .swipeable(
                 state = swipeableState,
                 anchors = anchors,

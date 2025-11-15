@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -31,26 +32,39 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.legioncommander.data.Faction
+import com.example.legioncommander.model.commandcards.Faction
 import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
+import com.example.legioncommander.ui.theme.icons.Playing_cards
+import com.example.legioncommander.views.battlecards.BattleDeckCreationView
 import com.example.legioncommander.views.CurrentDecksView
 import com.example.legioncommander.views.DeckBuilderView
-import com.example.legioncommander.views.DeckCreationView
-import com.example.legioncommander.views.DeckDetailView
+import com.example.legioncommander.views.commandcards.CommandDeckCreationView
+import com.example.legioncommander.views.commandcards.CommandDeckDetailView
+import com.example.legioncommander.views.battlecards.BattleDeckDetailView
 
 // Sealed class to define the navigation routes for our screens
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
-    object DeckBuilder : Screen("deck_builder", "Deck Builder", Icons.Default.Build)
-    object MyDecks : Screen("my_decks", "My Decks", Icons.Default.List)
+    object DeckBuilder : Screen("deck_builder", "Deck Builder", Icons.Default.Home)
+    object MyDecks : Screen("my_decks", "My Decks", Playing_cards)
     object Settings : Screen("settings", "Settings", Icons.Default.Settings)
     object DeckCreation : Screen("deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
         // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"
     }
 
+    //Battle Deck
+    object BattleDeckCreation : Screen("battle_deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
+        // Helper function to create the correct route for a specific faction
+        fun createRoute(factionName: String) = "deck_creation/$factionName"
+    }
+
     object DeckDetail : Screen("deck_detail/{deckId}", "Deck Detail", Icons.Default.List) {
         fun createRoute(deckId: Int) = "deck_detail/$deckId"
+    }
+
+    object BattleDeckDetail : Screen("battle_deck_detail/{deckId}", "Battle Deck", Icons.Default.List) {
+        fun createRoute(deckId: Int) = "battle_deck_detail/$deckId"
     }
 }
 
@@ -123,7 +137,7 @@ fun MainScreen() {
                 val selectedFaction = factionName?.let { Faction.valueOf(it) }
 
                 if (selectedFaction != null) {
-                    DeckCreationView(selectedFaction = selectedFaction)
+                    CommandDeckCreationView(selectedFaction = selectedFaction)
                 } else {
                     // If faction is null for some reason, just go back
                     navController.popBackStack()
@@ -136,11 +150,35 @@ fun MainScreen() {
                 // Retrieve the deckId argument from the route
                 val deckId = backStackEntry.arguments?.getInt("deckId")
                 if (deckId != null) {
-                    DeckDetailView(deckId = deckId)
+                    CommandDeckDetailView(deckId = deckId)
                 } else {
                     // If the ID is missing for some reason, go back.
                     navController.popBackStack()
                 }
+            }
+            composable(
+                route = Screen.BattleDeckCreation.route,
+                arguments = listOf(navArgument("factionName") { type = NavType.StringType })
+            ) { backStackEntry ->
+                // Retrieve the factionName from the arguments
+                val factionName = backStackEntry.arguments?.getString("factionName")
+                if (factionName != null) {
+                    // Pass the navController and the factionName to your new view
+                    BattleDeckCreationView(
+                    )
+                } else {
+                    // Handle the error case, e.g., navigate back or show an error message
+                    navController.popBackStack()
+                }
+            }
+
+            composable(
+                route = Screen.BattleDeckDetail.route,
+                arguments = listOf(navArgument("deckId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val deckId = backStackEntry.arguments?.getInt("deckId")
+                requireNotNull(deckId) { "deckId parameter was not found." }
+                BattleDeckDetailView(deckId = deckId)
             }
         }
     }

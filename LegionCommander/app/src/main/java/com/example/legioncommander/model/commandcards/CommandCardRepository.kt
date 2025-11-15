@@ -1,4 +1,4 @@
-package com.example.legioncommander.data
+package com.example.legioncommander.model.commandcards
 
 import com.example.legioncommander.R
 
@@ -7,13 +7,28 @@ object CommandCardRepository {
     private val allCards = listOf(
         // --- Generic Cards (faction is null) ---
         //Generic
-        CommandCard("gen1", "Ambush", R.drawable.ambush, 1, factions = emptyList()),
-        CommandCard("gen2", "Push", R.drawable.push, 2, factions = emptyList()),
-        CommandCard("gen3", "Assault", R.drawable.assault, 3, factions = emptyList()),
+        CommandCard(
+            "gen1",
+            "Ambush",
+            _root_ide_package_.com.example.legioncommander.R.drawable.ambush,
+            1,
+            factions = emptyList()),
+        CommandCard(
+            "gen2",
+            "Push",
+            _root_ide_package_.com.example.legioncommander.R.drawable.push,
+            2,
+            factions = emptyList()),
+        CommandCard(
+            "gen3",
+            "Assault",
+            _root_ide_package_.com.example.legioncommander.R.drawable.assault,
+            3,
+            factions = emptyList()),
         CommandCard(
             "gen4",
             "Standing Orders",
-            R.drawable.standing_orders,
+            _root_ide_package_.com.example.legioncommander.R.drawable.standing_orders,
             4,
             factions = emptyList()
         ),
@@ -21,21 +36,21 @@ object CommandCardRepository {
         CommandCard(
             "gen5",
             "Ploy",
-            R.drawable.ploy,
+            _root_ide_package_.com.example.legioncommander.R.drawable.ploy,
             1,
             factions = emptyList()
         ),
         CommandCard(
             "gen6",
             "Aggression",
-            R.drawable.aggression,
+            _root_ide_package_.com.example.legioncommander.R.drawable.aggression,
             2,
             factions = emptyList()
         ),
         CommandCard(
             "gen7",
             "Discretion",
-            R.drawable.discretion,
+            _root_ide_package_.com.example.legioncommander.R.drawable.discretion,
             3,
             factions = emptyList()
         ),
@@ -45,21 +60,21 @@ object CommandCardRepository {
         CommandCard(
             "rebgen1",
             "Sabotaged Communications",
-            R.drawable.sabotaged_communications,
+            _root_ide_package_.com.example.legioncommander.R.drawable.sabotaged_communications,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "rebgen2",
             "Turning The Tide",
-            R.drawable.turning_the_tide,
+            _root_ide_package_.com.example.legioncommander.R.drawable.turning_the_tide,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "rebgen3",
             "Covering Fire",
-            R.drawable.covering_fire,
+            _root_ide_package_.com.example.legioncommander.R.drawable.covering_fire,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -67,28 +82,28 @@ object CommandCardRepository {
         CommandCard(
             "reb1",
             "Son Of Skywalker",
-            R.drawable.son_of_skywalker,
+            _root_ide_package_.com.example.legioncommander.R.drawable.son_of_skywalker,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb2",
             "My Ally Is The Force",
-            R.drawable.my_ally_is_the_force,
+            _root_ide_package_.com.example.legioncommander.R.drawable.my_ally_is_the_force,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb3",
             "Full Of Surprises",
-            R.drawable.full_of_surprises,
+            _root_ide_package_.com.example.legioncommander.R.drawable.full_of_surprises,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb4",
             "Return Of The Jedi",
-            R.drawable.return_of_the_jedi,
+            _root_ide_package_.com.example.legioncommander.R.drawable.return_of_the_jedi,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -96,28 +111,28 @@ object CommandCardRepository {
         CommandCard(
             "reb5",
             "Coordinated Bombardment",
-            R.drawable.coordinated_bombardment,
+            _root_ide_package_.com.example.legioncommander.R.drawable.coordinated_bombardment,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb6",
             "A Beautiful Friendship",
-            R.drawable.a_beautiful_friendship,
+            _root_ide_package_.com.example.legioncommander.R.drawable.a_beautiful_friendship,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb7",
             "No TIme For Sorrows",
-            R.drawable.no_time_for_sorrows,
+            _root_ide_package_.com.example.legioncommander.R.drawable.no_time_for_sorrows,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb8",
             "Somebody Has To Save Our Skins",
-            R.drawable.somebody_has_to_save_our_skins,
+            _root_ide_package_.com.example.legioncommander.R.drawable.somebody_has_to_save_our_skins,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -125,21 +140,21 @@ object CommandCardRepository {
         CommandCard(
             "reb9",
             "Sorry About The Mess",
-            R.drawable.sorry_about_the_mess,
+            _root_ide_package_.com.example.legioncommander.R.drawable.sorry_about_the_mess,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb10",
             "Reckless Diversion",
-            R.drawable.reckless_diversion,
+            _root_ide_package_.com.example.legioncommander.R.drawable.reckless_diversion,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb11",
             "Change Of Plans",
-            R.drawable.change_of_plans,
+            _root_ide_package_.com.example.legioncommander.R.drawable.change_of_plans,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -147,21 +162,21 @@ object CommandCardRepository {
         CommandCard(
             "reb12",
             "Common Cause",
-            R.drawable.common_cause,
+            _root_ide_package_.com.example.legioncommander.R.drawable.common_cause,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb13",
             "Brains and Brawn",
-            R.drawable.brains_and_brawn,
+            _root_ide_package_.com.example.legioncommander.R.drawable.brains_and_brawn,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb14",
             "Notorious Scoundrels",
-            R.drawable.notorious_scoundrels,
+            _root_ide_package_.com.example.legioncommander.R.drawable.notorious_scoundrels,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -169,50 +184,50 @@ object CommandCardRepository {
         CommandCard(
             "reb15",
             "Explosions!",
-            R.drawable.explosions,
+            _root_ide_package_.com.example.legioncommander.R.drawable.explosions,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb16",
             "Symbol Of Rebellion",
-            R.drawable.symbol_of_rebellion,
+            _root_ide_package_.com.example.legioncommander.R.drawable.symbol_of_rebellion,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb17",
             "Legacy Of Mandalore",
-            R.drawable.legacy_of_mandalore,
+            _root_ide_package_.com.example.legioncommander.R.drawable.legacy_of_mandalore,
             3,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb18",
             "Crack Shot",
-            R.drawable.crack_shot,
+            _root_ide_package_.com.example.legioncommander.R.drawable.crack_shot,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb19",
             "Last Stand",
-            R.drawable.last_stand,
+            _root_ide_package_.com.example.legioncommander.R.drawable.last_stand,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb20",
             "Volunteer Mission",
-            R.drawable.volunteer_mission,
-             3,
+            _root_ide_package_.com.example.legioncommander.R.drawable.volunteer_mission,
+            3,
             factions = listOf(Faction.REBELS)
         ),
         //K-2SO
         CommandCard(
             "reb21",
             "Sacrifice",
-            R.drawable.sacrifice,
+            _root_ide_package_.com.example.legioncommander.R.drawable.sacrifice,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -220,21 +235,21 @@ object CommandCardRepository {
         CommandCard(
             "reb22",
             "Corellian Spike",
-            R.drawable.corellian_spike,
+            _root_ide_package_.com.example.legioncommander.R.drawable.corellian_spike,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb22",
             "Ace Up His Sleeve",
-            R.drawable.ace_up_his_sleeve,
+            _root_ide_package_.com.example.legioncommander.R.drawable.ace_up_his_sleeve,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb23",
             "Idiots Array",
-            R.drawable.idiots_array,
+            _root_ide_package_.com.example.legioncommander.R.drawable.idiots_array,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -242,7 +257,7 @@ object CommandCardRepository {
         CommandCard(
             "reb27",
             "BattleField Reconnaissance",
-            R.drawable.battlefield_reconnaissance,
+            _root_ide_package_.com.example.legioncommander.R.drawable.battlefield_reconnaissance,
             2,
             factions = listOf(Faction.REBELS)
         ),
@@ -250,7 +265,7 @@ object CommandCardRepository {
         CommandCard(
             "reb28",
             "Diversionary Tactics",
-            R.drawable.diversionary_tactics,
+            _root_ide_package_.com.example.legioncommander.R.drawable.diversionary_tactics,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -258,21 +273,21 @@ object CommandCardRepository {
         CommandCard(
             "reb29",
             "I Rebel",
-            R.drawable.i_rebel,
+            _root_ide_package_.com.example.legioncommander.R.drawable.i_rebel,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb30",
             "Trust Goes Both Ways",
-            R.drawable.trust_goes_both_ways,
+            _root_ide_package_.com.example.legioncommander.R.drawable.trust_goes_both_ways,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb31",
             "Rebellions Are Built On Hope",
-            R.drawable.rebellions_are_built_on_hope,
+            _root_ide_package_.com.example.legioncommander.R.drawable.rebellions_are_built_on_hope,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -280,7 +295,7 @@ object CommandCardRepository {
         CommandCard(
             "reb32",
             "The Hand Thing",
-            R.drawable.the_hand_thing,
+            _root_ide_package_.com.example.legioncommander.R.drawable.the_hand_thing,
             2,
             factions = listOf(Faction.REBELS)
         ),
@@ -288,21 +303,21 @@ object CommandCardRepository {
         CommandCard(
             "reb33",
             "Close Call",
-            R.drawable.close_call,
+            _root_ide_package_.com.example.legioncommander.R.drawable.close_call,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb34",
             "Sneaky Scouting",
-            R.drawable.sneacky_scouting,
+            _root_ide_package_.com.example.legioncommander.R.drawable.sneacky_scouting,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb35",
             "Courageous Counterattack",
-            R.drawable.courageous_counterattack,
+            _root_ide_package_.com.example.legioncommander.R.drawable.courageous_counterattack,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -310,28 +325,28 @@ object CommandCardRepository {
         CommandCard(
             "reb36",
             "I Am No Jedi",
-            R.drawable.i_am_no_jedi,
+            _root_ide_package_.com.example.legioncommander.R.drawable.i_am_no_jedi,
             1,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb37",
             "Family Reunion",
-            R.drawable.family_reunion,
+            _root_ide_package_.com.example.legioncommander.R.drawable.family_reunion,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb38",
             "Swift Protector",
-            R.drawable.swift_protector,
+            _root_ide_package_.com.example.legioncommander.R.drawable.swift_protector,
             2,
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
             "reb39",
             "A New Beginning",
-            R.drawable.a_new_beginning,
+            _root_ide_package_.com.example.legioncommander.R.drawable.a_new_beginning,
             3,
             factions = listOf(Faction.REBELS)
         ),
@@ -341,21 +356,21 @@ object CommandCardRepository {
         CommandCard(
             "em1",
             "Convert Observation",
-            R.drawable.covert_observation,
+            _root_ide_package_.com.example.legioncommander.R.drawable.covert_observation,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em2",
             "Pinned Down",
-            R.drawable.pinned_down,
+            _root_ide_package_.com.example.legioncommander.R.drawable.pinned_down,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em3",
             "Coordinated Fire",
-            R.drawable.coordinated_fire,
+            _root_ide_package_.com.example.legioncommander.R.drawable.coordinated_fire,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -363,42 +378,42 @@ object CommandCardRepository {
         CommandCard(
             "em4",
             "Implacable",
-            R.drawable.implacable,
+            _root_ide_package_.com.example.legioncommander.R.drawable.implacable,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em5",
             "Vader's Might",
-            R.drawable.vaders_might,
+            _root_ide_package_.com.example.legioncommander.R.drawable.vaders_might,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em6",
             "New Ways To Motivate Them",
-            R.drawable.new_ways_to_motivate_them,
+            _root_ide_package_.com.example.legioncommander.R.drawable.new_ways_to_motivate_them,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em7",
             "Fear And Dead Men",
-            R.drawable.fear_and_dead_men,
+            _root_ide_package_.com.example.legioncommander.R.drawable.fear_and_dead_men,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em8",
             "Master Of Evil",
-            R.drawable.master_of_evil,
+            _root_ide_package_.com.example.legioncommander.R.drawable.master_of_evil,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em9",
             "Darkness Descends",
-            R.drawable.darkness_descends,
+            _root_ide_package_.com.example.legioncommander.R.drawable.darkness_descends,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -406,21 +421,21 @@ object CommandCardRepository {
         CommandCard(
             "em10",
             "Maximum Firepower",
-            R.drawable.maximum_firepower,
+            _root_ide_package_.com.example.legioncommander.R.drawable.maximum_firepower,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em11",
             "Evasive Maneuvers",
-            R.drawable.evasive_maneuvers,
+            _root_ide_package_.com.example.legioncommander.R.drawable.evasive_maneuvers,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em12",
             "Imperial Discipline",
-            R.drawable.imperial_discipline,
+            _root_ide_package_.com.example.legioncommander.R.drawable.imperial_discipline,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -428,21 +443,21 @@ object CommandCardRepository {
         CommandCard(
             "em13",
             "Voracious Ambition",
-            R.drawable.voracious_ambitions,
+            _root_ide_package_.com.example.legioncommander.R.drawable.voracious_ambitions,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em14",
             "Deploy The Garrison",
-            R.drawable.deploy_the_garrison,
+            _root_ide_package_.com.example.legioncommander.R.drawable.deploy_the_garrison,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em15",
             "Annihilation Looms",
-            R.drawable.annihilation_looms,
+            _root_ide_package_.com.example.legioncommander.R.drawable.annihilation_looms,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -450,28 +465,28 @@ object CommandCardRepository {
         CommandCard(
             "em16",
             "Pulse Scan",
-            R.drawable.pulse_scan,
+            _root_ide_package_.com.example.legioncommander.R.drawable.pulse_scan,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em17",
             "Incapacitate",
-            R.drawable.incapacitate,
+            _root_ide_package_.com.example.legioncommander.R.drawable.incapacitate,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em18",
             "Concussive Blast",
-            R.drawable.concussive_blast,
+            _root_ide_package_.com.example.legioncommander.R.drawable.concussive_blast,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em19",
             "Tactical Strike",
-            R.drawable.tactical_strike,
+            _root_ide_package_.com.example.legioncommander.R.drawable.tactical_strike,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -479,28 +494,28 @@ object CommandCardRepository {
         CommandCard(
             "em20",
             "Face Me!",
-            R.drawable.face_me,
+            _root_ide_package_.com.example.legioncommander.R.drawable.face_me,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em21",
             "ISB Investigation",
-            R.drawable.isb_investigation,
+            _root_ide_package_.com.example.legioncommander.R.drawable.isb_investigation,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em22",
             "Ruthless Tactics",
-            R.drawable.ruthless_tactics,
+            _root_ide_package_.com.example.legioncommander.R.drawable.ruthless_tactics,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em23",
             "Ruthless Tactics",
-            R.drawable.ruthless_tactics,
+            _root_ide_package_.com.example.legioncommander.R.drawable.ruthless_tactics,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -508,14 +523,14 @@ object CommandCardRepository {
         CommandCard(
             "em24",
             "Focused On The Kill",
-            R.drawable.focused_on_the_kill,
+            _root_ide_package_.com.example.legioncommander.R.drawable.focused_on_the_kill,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em25",
             "Independent Programming",
-            R.drawable.independent_programming,
+            _root_ide_package_.com.example.legioncommander.R.drawable.independent_programming,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -523,21 +538,21 @@ object CommandCardRepository {
         CommandCard(
             "em26",
             "Die At My Hand",
-            R.drawable.die_at_my_hand,
+            _root_ide_package_.com.example.legioncommander.R.drawable.die_at_my_hand,
             1,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em27",
             "You Have Something I Want",
-            R.drawable.you_have_something_i_want,
+            _root_ide_package_.com.example.legioncommander.R.drawable.you_have_something_i_want,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em28",
             "Moment Of Consideration",
-            R.drawable.moment_of_consideration,
+            _root_ide_package_.com.example.legioncommander.R.drawable.moment_of_consideration,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -545,7 +560,7 @@ object CommandCardRepository {
         CommandCard(
             "em29",
             "You Would Question Me?",
-            R.drawable.you_would_question_me,
+            _root_ide_package_.com.example.legioncommander.R.drawable.you_would_question_me,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -1251,9 +1266,7 @@ object CommandCardRepository {
     )
 
     fun getCardsForFaction(faction: Faction): List<CommandCard> {
-        // 2. Filter the master list.
         return allCards.filter { card ->
-            // A card is included if it's generic (faction is null) OR it matches the requested faction.
             card.factions.isEmpty() || card.factions.contains(faction)
         }
     }
