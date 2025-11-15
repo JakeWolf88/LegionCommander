@@ -47,7 +47,7 @@ import com.example.legioncommander.views.battlecards.BattleDeckDetailView
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
     object DeckBuilder : Screen("deck_builder", "Deck Builder", Icons.Default.Home)
     object MyDecks : Screen("my_decks", "My Decks", Playing_cards)
-    object Settings : Screen("settings", "Settings", Icons.Default.Settings)
+    object Settings : Screen("settings", "List Analyzer", Icons.Default.Settings)
     object DeckCreation : Screen("deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
         // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"
@@ -90,31 +90,35 @@ fun MainScreen() {
         Screen.Settings,
     )
 
+    // Get current back stack entry
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    // List of top-level screens where the bottom bar should be shown
+    val topLevelScreens = listOf(Screen.DeckBuilder.route, Screen.MyDecks.route, Screen.Settings.route)
+    val shouldShowBottomBar = currentDestination?.route in topLevelScreens
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
-
-                items.forEach { screen ->
-                    NavigationBarItem(
-                        icon = { Icon(screen.icon, contentDescription = null) },
-                        label = { Text(screen.label) },
-                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                        onClick = {
-                            navController.navigate(screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+            if (shouldShowBottomBar) {
+                NavigationBar {
+                    items.forEach { screen ->
+                        NavigationBarItem(
+                            icon = { Icon(screen.icon, contentDescription = null) },
+                            label = { Text(screen.label) },
+                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                            onClick = {
+                                navController.navigate(screen.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                // Avoid multiple copies of the same destination when
-                                // reselecting the same item
-                                launchSingleTop = true
-                                // Restore state when reselecting a previously selected item
-                                restoreState = true
                             }
-                        }
-                    )
+                        )
+                    }
                 }
             }
         }
@@ -187,7 +191,7 @@ fun MainScreen() {
 @Composable
 fun SettingsScreen() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Settings Screen", fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
+        Text(text = "List Analyzer", fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
     }
 }
 

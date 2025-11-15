@@ -2,7 +2,6 @@ package com.example.legioncommander.views.battlecards
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
@@ -13,13 +12,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.example.legioncommander.model.battlecards.BattleCard
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 
@@ -35,10 +30,11 @@ fun DeckPile(
     Column(
         modifier = modifier
             .width(IntrinsicSize.Min)
-            .height(500.dp),
+            .fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
     ) {
+
         Text(
             text = deckType,
             fontFamily = StarJediFontFamily,
@@ -46,17 +42,13 @@ fun DeckPile(
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-
-        FlippableCardView(card = cardToShow)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
         Button(
-            onClick = onNextClicked,
-            enabled = isNextEnabled
+                onClick = onNextClicked,
+        enabled = isNextEnabled
         ) {
-            Text("Next Card")
-        }
+        Text("Next Card")
+    }
+        FlippableCardView(card = cardToShow)
     }
 }
 
@@ -78,8 +70,9 @@ fun MatchView(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
+            contentPadding = PaddingValues(16.dp),
             horizontalArrangement = Arrangement.spacedBy(24.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ) {
             if (primaryDeck.isNotEmpty()) {
                 item {
