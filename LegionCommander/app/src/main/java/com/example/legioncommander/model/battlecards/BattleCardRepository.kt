@@ -36,6 +36,11 @@ object BattleCardRepository {
                    R.drawable.shifting_priorities,
                    cardType = BattleCardType.PRIMARY
         ),
+        BattleCard(id = "OP",
+                   title = "Outflank",
+                   R.drawable.outflank,
+                   cardType = BattleCardType.PRIMARY
+        ),
 
         //Secondaries
         BattleCard(id = "BTTHS",
@@ -68,6 +73,11 @@ object BattleCardRepository {
                    R.drawable.sweep_and_clear,
                    cardType = BattleCardType.SECONDARY
         ),
+        BattleCard(id = "SRS",
+                   title = "Supply Run",
+                   R.drawable.supply_run,
+                   cardType = BattleCardType.SECONDARY
+        ),
 
         //Advantages
         BattleCard(id = "AIA",
@@ -98,6 +108,26 @@ object BattleCardRepository {
         BattleCard(id = "SRA",
                    title = "Strafing Run",
                    R.drawable.strafing_run,
+                   cardType = BattleCardType.ADVANTAGE
+        ),
+        BattleCard(id = "BOA",
+                   title = "Black Ops",
+                   R.drawable.black_ops,
+                   cardType = BattleCardType.ADVANTAGE
+        ),
+        BattleCard(id = "COA",
+                   title = "Command Override",
+                   R.drawable.command_override,
+                   cardType = BattleCardType.ADVANTAGE
+        ),
+        BattleCard(id = "CSA",
+                   title = "Coordinated Strike",
+                   R.drawable.coordinated_strike,
+                   cardType = BattleCardType.ADVANTAGE
+        ),
+        BattleCard(id = "NTTLA",
+                   title = "No Time To Lose",
+                   R.drawable.no_time_to_lose,
                    cardType = BattleCardType.ADVANTAGE
         ),
     )
