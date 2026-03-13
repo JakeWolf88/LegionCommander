@@ -988,6 +988,13 @@ object CommandCardRepository {
             1,
             factions = listOf(Faction.SEPARATISTS)
         ),
+        CommandCard(
+            "cis28",
+            "Roger, Roger!",
+            R.drawable.roger_roger,
+            1,
+            factions = listOf(Faction.SEPARATISTS)
+        ),
         //Generic
         CommandCard(
             "cis9",
