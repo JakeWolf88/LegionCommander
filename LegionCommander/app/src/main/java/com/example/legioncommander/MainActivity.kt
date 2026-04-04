@@ -37,8 +37,9 @@ import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 import com.example.legioncommander.ui.theme.icons.Playing_cards
 import com.example.legioncommander.views.battlecards.BattleDeckCreationView
-import com.example.legioncommander.views.CurrentDecksView
 import com.example.legioncommander.views.DeckBuilderView
+import com.example.legioncommander.views.StartMatchView
+import com.example.legioncommander.views.MatchView
 import com.example.legioncommander.views.commandcards.CommandDeckCreationView
 import com.example.legioncommander.views.commandcards.CommandDeckDetailView
 import com.example.legioncommander.views.battlecards.BattleDeckDetailView
@@ -46,8 +47,8 @@ import com.example.legioncommander.views.battlecards.BattleDeckDetailView
 // Sealed class to define the navigation routes for our screens
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
     object DeckBuilder : Screen("deck_builder", "Deck Builder", Icons.Default.Home)
-    object MyDecks : Screen("my_decks", "My Decks", Playing_cards)
-    object Settings : Screen("settings", "Start Game", Icons.Default.Settings)
+    object MyDecks : Screen("my_decks", "Match Start", Playing_cards)
+    object Settings : Screen("settings", "Analyzer", Icons.Default.Settings)
     object DeckCreation : Screen("deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
         // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"
@@ -65,6 +66,11 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector)
 
     object BattleDeckDetail : Screen("battle_deck_detail/{deckId}", "Battle Deck", Icons.Default.List) {
         fun createRoute(deckId: Int) = "battle_deck_detail/$deckId"
+    }
+
+    object Match : Screen("match/{commandDeckId}/{battleDeckId}/{useDangerous}", "Match", Icons.Default.List) {
+        fun createRoute(commandDeckId: Int, battleDeckId: Int, useDangerous: Boolean) =
+            "match/$commandDeckId/$battleDeckId/$useDangerous"
     }
 }
 
@@ -129,7 +135,7 @@ fun MainScreen() {
                 DeckBuilderView(navController)
             }
             composable(Screen.MyDecks.route) {
-                CurrentDecksView(navController = navController)
+                StartMatchView(navController = navController)
             }
             composable(Screen.Settings.route) { SettingsScreen() }
             composable(
@@ -183,6 +189,24 @@ fun MainScreen() {
                 val deckId = backStackEntry.arguments?.getInt("deckId")
                 requireNotNull(deckId) { "deckId parameter was not found." }
                 BattleDeckDetailView(deckId = deckId)
+            }
+
+            composable(
+                route = Screen.Match.route,
+                arguments = listOf(
+                    navArgument("commandDeckId") { type = NavType.IntType },
+                    navArgument("battleDeckId") { type = NavType.IntType },
+                    navArgument("useDangerous") { type = NavType.BoolType }
+                )
+            ) { backStackEntry ->
+                val commandDeckId = backStackEntry.arguments?.getInt("commandDeckId") ?: 0
+                val battleDeckId = backStackEntry.arguments?.getInt("battleDeckId") ?: 0
+                val useDangerous = backStackEntry.arguments?.getBoolean("useDangerous") ?: false
+                MatchView(
+                    commandDeckId = commandDeckId,
+                    battleDeckId = battleDeckId,
+                    useDangerousEnvironments = useDangerous
+                )
             }
         }
     }
