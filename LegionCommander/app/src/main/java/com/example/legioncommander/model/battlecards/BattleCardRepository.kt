@@ -17,7 +17,7 @@ object BattleCardRepository {
                    cardType = BattleCardType.PRIMARY
         ),
         BattleCard(id = "CTPP",
-                   title = "CLose The Pocket",
+                   title = "Close The Pocket",
                    R.drawable.close_the_pocket,
                    cardType = BattleCardType.PRIMARY
         ),
