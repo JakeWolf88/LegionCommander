@@ -41,6 +41,21 @@ object BattleCardRepository {
                    R.drawable.outflank,
                    cardType = BattleCardType.PRIMARY
         ),
+        BattleCard(id = "CP",
+                   title = "Cauldron",
+                   R.drawable.cauldron,
+                   cardType = BattleCardType.PRIMARY
+        ),
+        BattleCard(id = "CCP",
+                   title = "Contact, Contact!",
+                   R.drawable.contact_contact,
+                   cardType = BattleCardType.PRIMARY
+        ),
+        BattleCard(id = "PP",
+                   title = "Payload",
+                   R.drawable.payload,
+                   cardType = BattleCardType.PRIMARY
+        ),
 
         //Secondaries
         BattleCard(id = "BTTHS",
@@ -78,6 +93,21 @@ object BattleCardRepository {
                    R.drawable.supply_run,
                    cardType = BattleCardType.SECONDARY
         ),
+        BattleCard(id = "ATRS",
+                   title = "Align the Relay",
+                   R.drawable.align_the_relay,
+                   cardType = BattleCardType.SECONDARY
+        ),
+        BattleCard(id = "FNS",
+                   title = "Failed Negotiations",
+                   R.drawable.failed_negotiations,
+                   cardType = BattleCardType.SECONDARY
+        ),
+        BattleCard(id = "RTDS",
+                   title = "Retrieve the Data",
+                   R.drawable.retrieve_the_data,
+                   cardType = BattleCardType.SECONDARY
+        ),
 
         //Advantages
         BattleCard(id = "AIA",
@@ -113,22 +143,50 @@ object BattleCardRepository {
         BattleCard(id = "BOA",
                    title = "Black Ops",
                    R.drawable.black_ops,
-                   cardType = BattleCardType.ADVANTAGE
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.EMPIRE
         ),
         BattleCard(id = "COA",
                    title = "Command Override",
                    R.drawable.command_override,
-                   cardType = BattleCardType.ADVANTAGE
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.CIS
         ),
         BattleCard(id = "CSA",
                    title = "Coordinated Strike",
                    R.drawable.coordinated_strike,
-                   cardType = BattleCardType.ADVANTAGE
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.REPUBLIC
         ),
         BattleCard(id = "NTTLA",
                    title = "No Time To Lose",
                    R.drawable.no_time_to_lose,
-                   cardType = BattleCardType.ADVANTAGE
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.REBELS
+        ),
+        BattleCard(id = "SOA",
+                   title = "Scrambled Orders",
+                   R.drawable.scrambled_orders,
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.REBELS
+        ),
+        BattleCard(id = "RDA",
+                   title = "Rapid Deployment",
+                   R.drawable.rapid_deployment,
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.REPUBLIC
+        ),
+        BattleCard(id = "AAA",
+                   title = "Armored Assault",
+                   R.drawable.armored_assault,
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.CIS
+        ),
+        BattleCard(id = "EDA",
+                   title = "Extreme Discipline",
+                   R.drawable.extreme_discipline,
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.EMPIRE
         ),
     )
 
