@@ -732,7 +732,7 @@ object CommandCardRepository {
             R.drawable.architects_of_their_own_destruction,
             1,
             factions = listOf(Faction.EMPIRE),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         CommandCard(
             "em42",
@@ -740,7 +740,7 @@ object CommandCardRepository {
             R.drawable.we_must_wait_and_watch,
             2,
             factions = listOf(Faction.EMPIRE),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         CommandCard(
             "em43",
@@ -748,7 +748,7 @@ object CommandCardRepository {
             R.drawable.i_want_you_to_know_failure,
             3,
             factions = listOf(Faction.EMPIRE),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         //General Tagge
         CommandCard(
@@ -757,7 +757,7 @@ object CommandCardRepository {
             R.drawable.i_have_graphs_and_the_command,
             1,
             factions = listOf(Faction.EMPIRE),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         CommandCard(
             "em45",
@@ -765,7 +765,7 @@ object CommandCardRepository {
             R.drawable.canny_adversary,
             3,
             factions = listOf(Faction.EMPIRE),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         //Emperor Palpatine
         CommandCard(
@@ -1072,7 +1072,7 @@ object CommandCardRepository {
             R.drawable.i_dont_believe_in_chance,
             2,
             factions = listOf(Faction.REPUBLIC),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         //Shaak Ti
         CommandCard(
@@ -1081,7 +1081,7 @@ object CommandCardRepository {
             R.drawable.unity_wins_wars,
             3,
             factions = listOf(Faction.REPUBLIC),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         CommandCard(
             "rep40",
@@ -1089,7 +1089,7 @@ object CommandCardRepository {
             R.drawable.unity_wins_wars,
             2,
             factions = listOf(Faction.REPUBLIC),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
         CommandCard(
             "rep41",
@@ -1097,7 +1097,7 @@ object CommandCardRepository {
             R.drawable.evasive_action,
             2,
             factions = listOf(Faction.REPUBLIC),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
 
 
@@ -1315,7 +1315,7 @@ object CommandCardRepository {
             R.drawable.for_the_cause,
             3,
             factions = listOf(Faction.SEPARATISTS),
-            cardStatus = CardStatus.PRERELEASE
+            cardStatus = CardStatus.UNRELEASED
         ),
 
         // --- Shadow Collective Cards ---

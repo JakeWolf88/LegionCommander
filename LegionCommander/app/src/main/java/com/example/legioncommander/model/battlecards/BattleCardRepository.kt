@@ -140,23 +140,11 @@ object BattleCardRepository {
                    R.drawable.strafing_run,
                    cardType = BattleCardType.ADVANTAGE
         ),
-        BattleCard(id = "BOA",
-                   title = "Black Ops",
-                   R.drawable.black_ops,
+        BattleCard(id = "SOA",
+                   title = "Scrambled Orders",
+                   R.drawable.scrambled_orders,
                    cardType = BattleCardType.ADVANTAGE,
-                   cardTypeFaction = AdvantageCardType.EMPIRE
-        ),
-        BattleCard(id = "COA",
-                   title = "Command Override",
-                   R.drawable.command_override,
-                   cardType = BattleCardType.ADVANTAGE,
-                   cardTypeFaction = AdvantageCardType.CIS
-        ),
-        BattleCard(id = "CSA",
-                   title = "Coordinated Strike",
-                   R.drawable.coordinated_strike,
-                   cardType = BattleCardType.ADVANTAGE,
-                   cardTypeFaction = AdvantageCardType.REPUBLIC
+                   cardTypeFaction = AdvantageCardType.REBELS
         ),
         BattleCard(id = "NTTLA",
                    title = "No Time To Lose",
@@ -164,11 +152,23 @@ object BattleCardRepository {
                    cardType = BattleCardType.ADVANTAGE,
                    cardTypeFaction = AdvantageCardType.REBELS
         ),
-        BattleCard(id = "SOA",
-                   title = "Scrambled Orders",
-                   R.drawable.scrambled_orders,
+        BattleCard(id = "BOA",
+                   title = "Black Ops",
+                   R.drawable.black_ops,
                    cardType = BattleCardType.ADVANTAGE,
-                   cardTypeFaction = AdvantageCardType.REBELS
+                   cardTypeFaction = AdvantageCardType.EMPIRE
+        ),
+        BattleCard(id = "EDA",
+                   title = "Extreme Discipline",
+                   R.drawable.extreme_discipline,
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.EMPIRE
+        ),
+        BattleCard(id = "CSA",
+                   title = "Coordinated Strike",
+                   R.drawable.coordinated_strike,
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.REPUBLIC
         ),
         BattleCard(id = "RDA",
                    title = "Rapid Deployment",
@@ -176,17 +176,17 @@ object BattleCardRepository {
                    cardType = BattleCardType.ADVANTAGE,
                    cardTypeFaction = AdvantageCardType.REPUBLIC
         ),
+        BattleCard(id = "COA",
+                   title = "Command Override",
+                   R.drawable.command_override,
+                   cardType = BattleCardType.ADVANTAGE,
+                   cardTypeFaction = AdvantageCardType.CIS
+        ),
         BattleCard(id = "AAA",
                    title = "Armored Assault",
                    R.drawable.armored_assault,
                    cardType = BattleCardType.ADVANTAGE,
                    cardTypeFaction = AdvantageCardType.CIS
-        ),
-        BattleCard(id = "EDA",
-                   title = "Extreme Discipline",
-                   R.drawable.extreme_discipline,
-                   cardType = BattleCardType.ADVANTAGE,
-                   cardTypeFaction = AdvantageCardType.EMPIRE
         ),
     )
 

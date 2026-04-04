@@ -17,7 +17,7 @@ enum class CardStatus
 {
     NORMAL,
     OBSOLETE,
-    PRERELEASE,
+    UNRELEASED,
 }
 
 // Data class to hold the information for a command card
