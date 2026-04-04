@@ -13,11 +13,19 @@ enum class Faction {
     BATTLE_DECK,
 }
 
+enum class CardStatus
+{
+    NORMAL,
+    OBSOLETE,
+    UNRELEASED,
+}
+
 // Data class to hold the information for a command card
 data class CommandCard(
     val id: String,
     val title: String,
     @DrawableRes val imageRes: Int,
     val pips: Int,
-    val factions: List<Faction> = emptyList()
+    val factions: List<Faction> = emptyList(),
+    val cardStatus: CardStatus = CardStatus.NORMAL,
 )

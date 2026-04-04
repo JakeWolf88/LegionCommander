@@ -47,7 +47,7 @@ import com.example.legioncommander.views.battlecards.BattleDeckDetailView
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
     object DeckBuilder : Screen("deck_builder", "Deck Builder", Icons.Default.Home)
     object MyDecks : Screen("my_decks", "My Decks", Playing_cards)
-    object Settings : Screen("settings", "List Analyzer", Icons.Default.Settings)
+    object Settings : Screen("settings", "Start Game", Icons.Default.Settings)
     object DeckCreation : Screen("deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
         // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"

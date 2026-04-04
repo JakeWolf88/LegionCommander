@@ -9,9 +9,19 @@ enum class BattleCardType
     ADVANTAGE,
 }
 
+enum class AdvantageCardType
+{
+    GENERAL,
+    REBELS,
+    EMPIRE,
+    REPUBLIC,
+    CIS,
+}
+
 data class BattleCard(
     val id: String,
     val title: String,
     @DrawableRes val imageRes: Int,
     val cardType: BattleCardType,
+    val cardTypeFaction: AdvantageCardType = AdvantageCardType.GENERAL
 )

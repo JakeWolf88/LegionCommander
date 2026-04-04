@@ -401,6 +401,27 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.REBELS)
         ),
+        CommandCard(
+            "reb47",
+            "See You in Hell",
+            R.drawable.see_you_in_hell,
+            1,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb48",
+            "On Patrol",
+            R.drawable.on_patrol,
+            2,
+            factions = listOf(Faction.REBELS)
+        ),
+        CommandCard(
+            "reb49",
+            "Not Out of it Yet",
+            R.drawable.not_out_of_it_yet,
+            3,
+            factions = listOf(Faction.REBELS)
+        ),
 
         // --- Empire Cards ---
         //General
@@ -553,20 +574,20 @@ object CommandCardRepository {
             "em21",
             "ISB Investigation",
             R.drawable.isb_investigation,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em22",
             "Ruthless Tactics",
             R.drawable.ruthless_tactics,
-            1,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em23",
-            "Ruthless Tactics",
-            R.drawable.ruthless_tactics,
+            "The Empire Does Not Tolerate Failure",
+            R.drawable.the_empire_does_not_tolerate_failure,
             2,
             factions = listOf(Faction.EMPIRE)
         ),
@@ -704,7 +725,73 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.EMPIRE)
         ),
-
+        //Thrawn
+        CommandCard(
+            "em41",
+            "Architects of Their Own Destruction",
+            R.drawable.architects_of_their_own_destruction,
+            1,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        CommandCard(
+            "em42",
+            "We Must Wait and Watch",
+            R.drawable.we_must_wait_and_watch,
+            2,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        CommandCard(
+            "em43",
+            "I Want You to Know Failure",
+            R.drawable.i_want_you_to_know_failure,
+            3,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        //General Tagge
+        CommandCard(
+            "em44",
+            "I Have Graphs AND the Command",
+            R.drawable.i_have_graphs_and_the_command,
+            1,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        CommandCard(
+            "em45",
+            "Canny Adversary",
+            R.drawable.canny_adversary,
+            3,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        //Emperor Palpatine
+        CommandCard(
+            "em46",
+            "And Now... You Will Die",
+            R.drawable.and_now_you_will_die,
+            1,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.OBSOLETE
+        ),
+        CommandCard(
+            "em47",
+            "Give In To Your Anger",
+            R.drawable.give_in_to_your_anger,
+            2,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.OBSOLETE
+        ),
+        CommandCard(
+            "em48",
+            "An Entire Legion",
+            R.drawable.an_entire_legion,
+            3,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.OBSOLETE
+        ),
 
         // --- Republic Cards ---
         //General
@@ -978,6 +1065,41 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.REPUBLIC)
         ),
+        //Plo Koon
+        CommandCard(
+            "rep38",
+            "I Don't Believe in Chance",
+            R.drawable.i_dont_believe_in_chance,
+            2,
+            factions = listOf(Faction.REPUBLIC),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        //Shaak Ti
+        CommandCard(
+            "rep39",
+            "Unity Wins Wars",
+            R.drawable.unity_wins_wars,
+            3,
+            factions = listOf(Faction.REPUBLIC),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        CommandCard(
+            "rep40",
+            "A Disturbance in the Force",
+            R.drawable.unity_wins_wars,
+            2,
+            factions = listOf(Faction.REPUBLIC),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+        CommandCard(
+            "rep41",
+            "Evasive Action",
+            R.drawable.evasive_action,
+            2,
+            factions = listOf(Faction.REPUBLIC),
+            cardStatus = CardStatus.UNRELEASED
+        ),
+
 
         // --- CIS Cards ---
         //Generic
@@ -985,6 +1107,13 @@ object CommandCardRepository {
             "cis8",
             "Mechanized Incursion",
             R.drawable.mechanized_incursion,
+            1,
+            factions = listOf(Faction.SEPARATISTS)
+        ),
+        CommandCard(
+            "cis28",
+            "Roger, Roger!",
+            R.drawable.roger_roger,
             1,
             factions = listOf(Faction.SEPARATISTS)
         ),
@@ -1180,6 +1309,14 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.SEPARATISTS)
         ),
+        CommandCard(
+            "cis28",
+            "For the Cause",
+            R.drawable.for_the_cause,
+            3,
+            factions = listOf(Faction.SEPARATISTS),
+            cardStatus = CardStatus.UNRELEASED
+        ),
 
         // --- Shadow Collective Cards ---
         //Darth Maul
@@ -1314,17 +1451,17 @@ object CommandCardRepository {
         ),
         CommandCard(
             "reb-em3",
-            "A Simply Man",
+            "A Simple Man",
             R.drawable.a_simple_man,
             1,
-            factions = listOf(Faction.REBELS)
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
         ),
         CommandCard(
             "reb-em4",
             "Making His Way In The Galaxy",
             R.drawable.making_his_way_in_the_galaxy,
             2,
-            factions = listOf(Faction.REBELS)
+            factions = listOf(Faction.REBELS, Faction.EMPIRE)
         ),
         CommandCard(
             "reb-em5",
