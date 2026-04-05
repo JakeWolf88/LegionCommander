@@ -837,6 +837,14 @@ object CommandCardRepository {
             3,
             factions = listOf(Faction.REPUBLIC)
         ),
+        //Chewbacca & Yoda
+        CommandCard(
+            "rep7",
+            "Size Matters Sometimes",
+            R.drawable.size_matters_sometimes,
+            2,
+            factions = listOf(Faction.REPUBLIC)
+        ),
         //Obi-Wan
         CommandCard(
             "rep8",
