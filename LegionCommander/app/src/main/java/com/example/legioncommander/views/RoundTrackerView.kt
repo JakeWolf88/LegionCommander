@@ -69,16 +69,16 @@ fun RoundTrackerView(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                // Player 1
+                // Blue Player
                 PlayerScoreCounter(
-                    label = "Player 1",
+                    label = "Blue Player",
                     score = player1Points,
                     onScoreChange = { player1Points = it.coerceIn(0, 12) }
                 )
 
-                // Player 2
+                // Red Player
                 PlayerScoreCounter(
-                    label = "Player 2",
+                    label = "Red Player",
                     score = player2Points,
                     onScoreChange = { player2Points = it.coerceIn(0, 12) }
                 )

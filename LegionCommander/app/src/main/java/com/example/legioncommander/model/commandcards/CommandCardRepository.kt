@@ -240,7 +240,7 @@ object CommandCardRepository {
             factions = listOf(Faction.REBELS)
         ),
         CommandCard(
-            "reb22",
+            "reb221",
             "Ace Up His Sleeve",
             R.drawable.ace_up_his_sleeve,
             2,
@@ -436,14 +436,14 @@ object CommandCardRepository {
             "em2",
             "Pinned Down",
             R.drawable.pinned_down,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em3",
             "Coordinated Fire",
             R.drawable.coordinated_fire,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         //Darth Vader
@@ -465,28 +465,28 @@ object CommandCardRepository {
             "em6",
             "New Ways To Motivate Them",
             R.drawable.new_ways_to_motivate_them,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em7",
             "Fear And Dead Men",
             R.drawable.fear_and_dead_men,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em8",
             "Master Of Evil",
             R.drawable.master_of_evil,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em9",
             "Darkness Descends",
             R.drawable.darkness_descends,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         //General Veers
@@ -501,14 +501,14 @@ object CommandCardRepository {
             "em11",
             "Evasive Maneuvers",
             R.drawable.evasive_maneuvers,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em12",
             "Imperial Discipline",
             R.drawable.imperial_discipline,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         //Director Orson Krennic
@@ -523,14 +523,14 @@ object CommandCardRepository {
             "em14",
             "Deploy The Garrison",
             R.drawable.deploy_the_garrison,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em15",
             "Annihilation Looms",
             R.drawable.annihilation_looms,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         //Iden Versio
@@ -545,21 +545,21 @@ object CommandCardRepository {
             "em17",
             "Incapacitate",
             R.drawable.incapacitate,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em18",
             "Concussive Blast",
             R.drawable.concussive_blast,
-            1,
+            2,
             factions = listOf(Faction.EMPIRE)
         ),
         CommandCard(
             "em19",
             "Tactical Strike",
             R.drawable.tactical_strike,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         //Agent Kallus
@@ -625,7 +625,7 @@ object CommandCardRepository {
             "em28",
             "Moment Of Consideration",
             R.drawable.moment_of_consideration,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE)
         ),
         //Fifth Brother
@@ -645,7 +645,7 @@ object CommandCardRepository {
         ),
         //Seventh Sister
         CommandCard(
-            "em30",
+            "em301",
             "Come And Prove It",
             R.drawable.come_and_prove_it,
             1,
@@ -834,15 +834,15 @@ object CommandCardRepository {
             "rep6",
             "Daring Defense",
             R.drawable.daring_defense,
-            1,
+            3,
             factions = listOf(Faction.REPUBLIC)
         ),
-        //Chewbacca
+        //Chewbacca & Yoda
         CommandCard(
             "rep7",
-            "Size Matters Not",
-            R.drawable.size_matters_not,
-            1,
+            "Size Matters Sometimes",
+            R.drawable.size_matters_sometimes,
+            2,
             factions = listOf(Faction.REPUBLIC)
         ),
         //Obi-Wan
@@ -1086,7 +1086,7 @@ object CommandCardRepository {
         CommandCard(
             "rep40",
             "A Disturbance in the Force",
-            R.drawable.unity_wins_wars,
+            R.drawable.a_disturbance_in_the_force,
             2,
             factions = listOf(Faction.REPUBLIC),
             cardStatus = CardStatus.UNRELEASED
@@ -1111,7 +1111,7 @@ object CommandCardRepository {
             factions = listOf(Faction.SEPARATISTS)
         ),
         CommandCard(
-            "cis28",
+            "cis81",
             "Roger, Roger!",
             R.drawable.roger_roger,
             1,
@@ -1338,7 +1338,7 @@ object CommandCardRepository {
             "sc3",
             "Seize What Power We Can",
             R.drawable.seize_what_power_we_can,
-            4,
+            3,
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
         //Gar Saxon
@@ -1346,14 +1346,14 @@ object CommandCardRepository {
             "sc4",
             "Marked For Elimination",
             R.drawable.marked_for_elimination,
-            3,
+            1,
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
         CommandCard(
             "sc5",
             "Fight Another Day",
             R.drawable.fight_another_day,
-            3,
+            2,
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
         CommandCard(
@@ -1370,14 +1370,14 @@ object CommandCardRepository {
             "sc-cis1",
             "Duel Of The Fates",
             R.drawable.duel_of_the_fates,
-            3,
+            1,
             factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.SEPARATISTS)
         ),
         CommandCard(
             "sc-cis2",
             "The Phantom Menace",
             R.drawable.the_phantom_menace,
-            3,
+            2,
             factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.SEPARATISTS)
         ),
         CommandCard(
@@ -1559,7 +1559,7 @@ object CommandCardRepository {
             "em-reb-rep-cis2",
             "Stories So Many Of Them True",
             R.drawable.stories_so_many_of_them_true,
-            2,
+            3,
             factions = listOf(Faction.EMPIRE, Faction.REBELS, Faction.REPUBLIC, Faction.SEPARATISTS)
         ),
     )

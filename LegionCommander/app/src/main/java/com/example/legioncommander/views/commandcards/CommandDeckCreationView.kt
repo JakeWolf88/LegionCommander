@@ -44,11 +44,11 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.alpha
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.legioncommander.model.commandcards.CommandDeck
 import com.example.legioncommander.viewmodels.DecksViewModel
 
-// 1. Data class to represent a command card
 data class CommandCard(
     val id: String,
     val title: String,
@@ -59,14 +59,18 @@ data class CommandCard(
 @Composable
 fun CommandDeckCreationView(
     selectedFaction: Faction,
-    viewModel: DecksViewModel = viewModel() // Get the same ViewModel instance
+    viewModel: DecksViewModel = viewModel()
 
-) { // Changed parameter name for clarity
+) {
     val cards = CommandCardRepository.getCardsForFaction(selectedFaction)    // A state to keep track of the IDs of selected cards
     val standingOrdersCardId = "gen4"
     val selectedCards = remember { mutableStateListOf(standingOrdersCardId) }
     val showNamePrompt = remember { mutableStateOf(false) }
     var deckName by remember { mutableStateOf("") }
+    val cardsInDeck = cards.filter { selectedCards.contains(it.id) }
+    val pips1 = cardsInDeck.count { it.pips == 1 }
+    val pips2 = cardsInDeck.count { it.pips == 2 }
+    val pips3 = cardsInDeck.count { it.pips == 3 }
 
     Column(
         modifier = Modifier
@@ -81,9 +85,9 @@ fun CommandDeckCreationView(
             fontSize = 24.sp
         )
         Text(
-            text = "Selected Cards: ${selectedCards.size}",
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            text = "Pips: [1s: $pips1/2] [2s: $pips2/2] [3s: $pips3/2]",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(bottom = 8.dp)
         )
 
         if (selectedCards.size == 7)
@@ -156,20 +160,25 @@ fun CommandDeckCreationView(
                 // Check if the current card is selected
                 val isSelected = selectedCards.contains(card.id)
                 val isStandingOrders = card.id == standingOrdersCardId
-
+                val pipLimitReached = cardsInDeck.count { it.pips == card.pips } >= 2
+                val isSelectionDisabled = !isSelected && pipLimitReached && !isStandingOrders
                 Card(
                     modifier = Modifier
                         // Disable clicks for the "Standing Orders" card
-                        .clickable(enabled = !isStandingOrders) {
-                            if (isSelected) {
-                                selectedCards.remove(card.id)
-                            } else {
-                                if (selectedCards.size < 7) {
-                                    selectedCards.add(card.id)
-                                }
+                        .clickable(enabled = !isStandingOrders) {    if (isSelected) {
+                            selectedCards.remove(card.id)
+                        } else {
+                            // We look up the card objects from the repository based on the IDs currently in selectedCards
+                            val cardsInDeck = cards.filter { selectedCards.contains(it.id) }
+                            val samePipCount = cardsInDeck.count { it.pips == card.pips }
+
+                            if (samePipCount < 2 && selectedCards.size < 7) {
+                                selectedCards.add(card.id)
                             }
                         }
+                        }
                         // Add a colored border if the card is selected
+                        .alpha(if (isSelectionDisabled) 0.5f else 1f) // Dim the card if it's disabled
                         .border(
                             width = 3.dp,
                             color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
@@ -187,7 +196,7 @@ fun CommandDeckCreationView(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(0.7f) // Aspect ratio for a card
-                                .clip(RoundedCornerShape(8.dp)) // Corrected the clip import
+                                .clip(RoundedCornerShape(8.dp))
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
