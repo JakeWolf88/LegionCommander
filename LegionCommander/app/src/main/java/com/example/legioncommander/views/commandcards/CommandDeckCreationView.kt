@@ -49,7 +49,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.legioncommander.model.commandcards.CommandDeck
 import com.example.legioncommander.viewmodels.DecksViewModel
 
-// 1. Data class to represent a command card
 data class CommandCard(
     val id: String,
     val title: String,
@@ -60,9 +59,9 @@ data class CommandCard(
 @Composable
 fun CommandDeckCreationView(
     selectedFaction: Faction,
-    viewModel: DecksViewModel = viewModel() // Get the same ViewModel instance
+    viewModel: DecksViewModel = viewModel()
 
-) { // Changed parameter name for clarity
+) {
     val cards = CommandCardRepository.getCardsForFaction(selectedFaction)    // A state to keep track of the IDs of selected cards
     val standingOrdersCardId = "gen4"
     val selectedCards = remember { mutableStateListOf(standingOrdersCardId) }
@@ -163,24 +162,18 @@ fun CommandDeckCreationView(
                 val isStandingOrders = card.id == standingOrdersCardId
                 val pipLimitReached = cardsInDeck.count { it.pips == card.pips } >= 2
                 val isSelectionDisabled = !isSelected && pipLimitReached && !isStandingOrders
-                val cardsInDeck = cards.filter { selectedCards.contains(it.id) }
                 Card(
                     modifier = Modifier
                         // Disable clicks for the "Standing Orders" card
                         .clickable(enabled = !isStandingOrders) {    if (isSelected) {
                             selectedCards.remove(card.id)
                         } else {
-                            // 1. Get the current count of cards with the same pip value as the clicked card
                             // We look up the card objects from the repository based on the IDs currently in selectedCards
                             val cardsInDeck = cards.filter { selectedCards.contains(it.id) }
                             val samePipCount = cardsInDeck.count { it.pips == card.pips }
 
-                            // 2. Check if the limit (2) has been reached for this specific pip type
                             if (samePipCount < 2 && selectedCards.size < 7) {
                                 selectedCards.add(card.id)
-                            } else if (samePipCount >= 2) {
-                                // Optional: You could show a Toast or Snackbar here saying
-                                // "You can only have two ${card.pips}-pip cards."
                             }
                         }
                         }
@@ -203,7 +196,7 @@ fun CommandDeckCreationView(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .aspectRatio(0.7f) // Aspect ratio for a card
-                                .clip(RoundedCornerShape(8.dp)) // Corrected the clip import
+                                .clip(RoundedCornerShape(8.dp))
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
