@@ -1,7 +1,9 @@
 package com.example.legioncommander.views
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,6 +21,7 @@ import com.example.legioncommander.model.commandcards.CommandDeck
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 import com.example.legioncommander.viewmodels.DecksViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun StartMatchView(
     navController: NavController,
@@ -30,6 +33,9 @@ fun StartMatchView(
     var selectedCommandDeck by remember { mutableStateOf<CommandDeck?>(null) }
     var selectedBattleDeck by remember { mutableStateOf<BattleDeck?>(null) }
     var useDangerousEnvironments by remember { mutableStateOf(false) }
+
+    var deckToDelete by remember { mutableStateOf<Any?>(null) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -63,7 +69,11 @@ fun StartMatchView(
                         SelectableDeckItem(
                             name = deck.name,
                             isSelected = selectedCommandDeck?.id == deck.id,
-                            onClick = { selectedCommandDeck = deck }
+                            onClick = { selectedCommandDeck = deck },
+                            onLongClick = {
+                                deckToDelete = deck
+                                showDeleteDialog = true
+                            }
                         )
                     }
                 }
@@ -91,7 +101,11 @@ fun StartMatchView(
                         SelectableDeckItem(
                             name = deck.name,
                             isSelected = selectedBattleDeck?.id == deck.id,
-                            onClick = { selectedBattleDeck = deck }
+                            onClick = { selectedBattleDeck = deck },
+                            onLongClick = {
+                                deckToDelete = deck
+                                showDeleteDialog = true
+                            }
                         )
                     }
                 }
@@ -135,18 +149,55 @@ fun StartMatchView(
             Text("Start Match")
         }
     }
+
+    if (showDeleteDialog && deckToDelete != null) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Delete Deck") },
+            text = { 
+                val name = when (val deck = deckToDelete) {
+                    is CommandDeck -> deck.name
+                    is BattleDeck -> deck.name
+                    else -> "this deck"
+                }
+                Text("Are you sure you want to delete '$name'?") 
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    when (val deck = deckToDelete) {
+                        is CommandDeck -> decksViewModel.deleteCommandDeck(deck)
+                        is BattleDeck -> decksViewModel.deleteBattleDeck(deck)
+                    }
+                    showDeleteDialog = false
+                    deckToDelete = null
+                }) {
+                    Text("Delete")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SelectableDeckItem(
     name: String,
     isSelected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onLongClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick
+            )
             .border(
                 width = if (isSelected) 2.dp else 0.dp,
                 color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
