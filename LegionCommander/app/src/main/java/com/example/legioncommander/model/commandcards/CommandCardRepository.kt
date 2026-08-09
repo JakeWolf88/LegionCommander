@@ -792,6 +792,23 @@ object CommandCardRepository {
             factions = listOf(Faction.EMPIRE),
             cardStatus = CardStatus.OBSOLETE
         ),
+        //Mof Tarkin
+        CommandCard(
+            "em49",
+            "Moment of Triumph",
+            R.drawable.moment_of_triumph,
+            1,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.OBSOLETE
+        ),
+        CommandCard(
+            "em50",
+            "Fear Will Keep Them in Line",
+            R.drawable.fear_will_keep_them_in_line,
+            3,
+            factions = listOf(Faction.EMPIRE),
+            cardStatus = CardStatus.OBSOLETE
+        ),
 
         // --- Republic Cards ---
         //General
@@ -1692,7 +1709,6 @@ object CommandCardRepository {
             factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
         ),
 
-        //TODO: Put these in New Deck, shadow Collective for now
         //Bo-Katan
         CommandCard(
             "sc10",
