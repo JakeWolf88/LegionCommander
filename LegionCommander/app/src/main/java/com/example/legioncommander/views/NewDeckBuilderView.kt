@@ -41,7 +41,7 @@ fun DeckBuilderView(navController: NavController) {
         DeckButtonItem("Republic Command Deck", R.drawable.republic_logo, Faction.REPUBLIC),
         DeckButtonItem("CIS Command Deck", R.drawable.cis_logo, Faction.SEPARATISTS),
         DeckButtonItem("Empire Command Deck", R.drawable.empire_logo, Faction.EMPIRE),
-        DeckButtonItem("Shadow Collective Command Deck", R.drawable.shadow_collective_logo, Faction.SHADOW_COLLECTIVE),
+        DeckButtonItem("Mercenary Command Deck", R.drawable.shadow_collective_logo, Faction.SHADOW_COLLECTIVE),
         DeckButtonItem("Battle Deck", R.drawable.battle_deck_icon, Faction.BATTLE_DECK),
         //TODO: Create some more decks
         //DeckButtonItem("Tour Of Duty Deck", R.drawable.tod_icon, Faction.BATTLE_DECK),

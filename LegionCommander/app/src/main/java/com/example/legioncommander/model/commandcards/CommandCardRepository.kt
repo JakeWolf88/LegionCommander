@@ -1318,7 +1318,7 @@ object CommandCardRepository {
             cardStatus = CardStatus.UNRELEASED
         ),
 
-        // --- Shadow Collective Cards ---
+        // --- Mercenary Cards ---
         //Darth Maul
         CommandCard(
             "sc1",
@@ -1361,6 +1361,125 @@ object CommandCardRepository {
             "Victory Or Death",
             R.drawable.victory_or_death,
             3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc7",
+            "I Smell Profit",
+            R.drawable.i_smell_profit,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc8",
+            "Insolence! We Are Pirates!",
+            R.drawable.insolence_we_are_pirates,
+            1,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc9",
+            "Speak Softly and Drive a Big Tank",
+            R.drawable.speak_softly_and_drive_a_big_tank,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+
+        //Generic
+        CommandCard(
+            "sc12",
+            "Aerial Assault",
+            R.drawable.aerial_assault,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc14",
+            "Death Before Defeat",
+            R.drawable.death_before_defeat,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc15",
+            "Out Of The Shadows",
+            R.drawable.out_of_the_shadows,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc17",
+            "We Are Mandalorians",
+            R.drawable.we_are_mandalorians,
+            1,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc18",
+            "Weapons Are Our Religion",
+            R.drawable.weapons_are_our_religion,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+
+        //The Armorer
+        CommandCard(
+            "sc19",
+            "Both Hunter and Prey",
+            R.drawable.both_hunter_and_prey,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+        CommandCard(
+            "sc20",
+            "We Shape Ourselves",
+            R.drawable.we_shape_ourselves,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+
+        //Paz
+        CommandCard(
+            "sc21",
+            "Go There Are Too Many",
+            R.drawable.go_there_are_too_many,
+            1,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+
+        //Mando Leader
+        CommandCard(
+            "sc22",
+            "Honor And Strength",
+            R.drawable.honor_and_strength,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+
+        //Rook Kast
+        CommandCard(
+            "sc24",
+            "Vengeful Strike",
+            R.drawable.vengeful_strike,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+
+        //Sabine
+        CommandCard(
+            "sc25",
+            "Make the Impossible Possible",
+            R.drawable.make_the_impossible_possible,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE)
+        ),
+
+        //Mando Hunter
+        CommandCard(
+            "sc26",
+            "No Escape",
+            R.drawable.no_escape,
+            1,
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
 
@@ -1561,6 +1680,49 @@ object CommandCardRepository {
             R.drawable.stories_so_many_of_them_true,
             3,
             factions = listOf(Faction.EMPIRE, Faction.REBELS, Faction.REPUBLIC, Faction.SEPARATISTS)
+        ),
+
+        //Mercenaries and Rebels
+        //Ursa
+        CommandCard(
+            "sc23",
+            "No One Threatens Our Family",
+            R.drawable.no_one_threatens_our_family,
+            1,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+
+        //TODO: Put these in New Deck, shadow Collective for now
+        //Bo-Katan
+        CommandCard(
+            "sc10",
+            "A Higher Purpose",
+            R.drawable.a_higher_purpose,
+            1,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+        CommandCard(
+            "sc11",
+            "Mandalore Will Survive",
+            R.drawable.mandalore_will_survive,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+
+        //Generic
+        CommandCard(
+            "sc16",
+            "We Protect Our Own",
+            R.drawable.we_protect_our_own,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+        CommandCard(
+            "sc13",
+            "Close Formation",
+            R.drawable.close_formation,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
         ),
     )
 
