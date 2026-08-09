@@ -1385,35 +1385,11 @@ object CommandCardRepository {
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
 
-        //TODO: Put these in New Deck, shadow Collective for now
-        //BoKatan
-        CommandCard(
-            "sc10",
-            "A Higher Purpose",
-            R.drawable.a_higher_purpose,
-            1,
-            factions = listOf(Faction.SHADOW_COLLECTIVE)
-        ),
-        CommandCard(
-            "sc11",
-            "Mandalore Will Survive",
-            R.drawable.mandalore_will_survive,
-            3,
-            factions = listOf(Faction.SHADOW_COLLECTIVE)
-        ),
-
         //Generic
         CommandCard(
             "sc12",
             "Aerial Assault",
             R.drawable.aerial_assault,
-            2,
-            factions = listOf(Faction.SHADOW_COLLECTIVE)
-        ),
-        CommandCard(
-            "sc13",
-            "Close Formation",
-            R.drawable.close_formation,
             2,
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
@@ -1429,13 +1405,6 @@ object CommandCardRepository {
             "Out Of The Shadows",
             R.drawable.out_of_the_shadows,
             2,
-            factions = listOf(Faction.SHADOW_COLLECTIVE)
-        ),
-        CommandCard(
-            "sc16",
-            "We Protect Our Own",
-            R.drawable.we_protect_our_own,
-            3,
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
         CommandCard(
@@ -1484,15 +1453,6 @@ object CommandCardRepository {
             "Honor And Strength",
             R.drawable.honor_and_strength,
             3,
-            factions = listOf(Faction.SHADOW_COLLECTIVE)
-        ),
-
-        //Ursa
-        CommandCard(
-            "sc23",
-            "No One Threatens Our Family",
-            R.drawable.no_one_threatens_our_family,
-            1,
             factions = listOf(Faction.SHADOW_COLLECTIVE)
         ),
 
@@ -1720,6 +1680,49 @@ object CommandCardRepository {
             R.drawable.stories_so_many_of_them_true,
             2,
             factions = listOf(Faction.EMPIRE, Faction.REBELS, Faction.REPUBLIC, Faction.SEPARATISTS)
+        ),
+
+        //Mercenaries and Rebels
+        //Ursa
+        CommandCard(
+            "sc23",
+            "No One Threatens Our Family",
+            R.drawable.no_one_threatens_our_family,
+            1,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+
+        //TODO: Put these in New Deck, shadow Collective for now
+        //Bo-Katan
+        CommandCard(
+            "sc10",
+            "A Higher Purpose",
+            R.drawable.a_higher_purpose,
+            1,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+        CommandCard(
+            "sc11",
+            "Mandalore Will Survive",
+            R.drawable.mandalore_will_survive,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+
+        //Generic
+        CommandCard(
+            "sc16",
+            "We Protect Our Own",
+            R.drawable.we_protect_our_own,
+            3,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
+        ),
+        CommandCard(
+            "sc13",
+            "Close Formation",
+            R.drawable.close_formation,
+            2,
+            factions = listOf(Faction.SHADOW_COLLECTIVE, Faction.REBELS)
         ),
     )
 
