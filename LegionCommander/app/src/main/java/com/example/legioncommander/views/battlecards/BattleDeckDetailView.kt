@@ -1,35 +1,25 @@
 package com.example.legioncommander.views.battlecards
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.legioncommander.R
 import com.example.legioncommander.model.battlecards.BattleCard
 import com.example.legioncommander.model.battlecards.BattleCardRepository
 import com.example.legioncommander.ui.theme.StarJediFontFamily
@@ -48,50 +38,67 @@ fun BattleDeckDetailView(
     val allCards = BattleCardRepository.getAllCards()
     var shuffledPrimary by remember { mutableStateOf<List<BattleCard>>(emptyList()) }
     var shuffledSecondary by remember { mutableStateOf<List<BattleCard>>(emptyList()) }
-    var shuffledAdvantage by remember { mutableStateOf<List<BattleCard>>(emptyList()) }
+    var shuffledAdvantage by remember { mutableStateOf<List<BattleCard>>(emptyOf()) }
+
+    var zoomedCard by remember { mutableStateOf<BattleCard?>(null) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (!isMatchStarted) {
-        battleDeck?.let { deck ->
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 80.dp),
-                contentPadding = PaddingValues(horizontal = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                item {
-                    Text(
-                        text = deck.name,
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontFamily = StarJediFontFamily
-                    )
-                    Spacer(modifier = Modifier.height(24.dp))
-                }
+            battleDeck?.let { deck ->
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 80.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    item {
+                        Text(
+                            text = deck.name,
+                            style = MaterialTheme.typography.headlineLarge,
+                            fontFamily = StarJediFontFamily
+                        )
+                        Spacer(modifier = Modifier.height(24.dp))
+                    }
 
-                // --- PRIMARY CARDS ---
-                val primaryCards = allCards.filter { it.id in deck.primaryCardIds }
-                if (primaryCards.isNotEmpty()) {
-                    item { SectionHeader("Primary") }
-                    items(primaryCards) { card -> BattleCardRow(card = card) }
-                }
+                    // --- PRIMARY CARDS ---
+                    val primaryCards = allCards.filter { it.id in deck.primaryCardIds }
+                    if (primaryCards.isNotEmpty()) {
+                        item { SectionHeader("Primary") }
+                        items(primaryCards) { card -> 
+                            BattleCardRow(
+                                card = card,
+                                onDoubleClick = { zoomedCard = card }
+                            ) 
+                        }
+                    }
 
-                // --- SECONDARY CARDS ---
-                val secondaryCards = allCards.filter { it.id in deck.secondaryCardIds }
-                if (secondaryCards.isNotEmpty()) {
-                    item { SectionHeader("Secondary") }
-                    items(secondaryCards) { card -> BattleCardRow(card = card) }
-                }
+                    // --- SECONDARY CARDS ---
+                    val secondaryCards = allCards.filter { it.id in deck.secondaryCardIds }
+                    if (secondaryCards.isNotEmpty()) {
+                        item { SectionHeader("Secondary") }
+                        items(secondaryCards) { card -> 
+                            BattleCardRow(
+                                card = card,
+                                onDoubleClick = { zoomedCard = card }
+                            ) 
+                        }
+                    }
 
-                val advantageCards = allCards.filter { it.id in deck.advantageCardIds }
-                if (advantageCards.isNotEmpty()) {
-                    item { SectionHeader("Advantage") }
-                    items(advantageCards) { card -> BattleCardRow(card = card) }
+                    val advantageCards = allCards.filter { it.id in deck.advantageCardIds }
+                    if (advantageCards.isNotEmpty()) {
+                        item { SectionHeader("Advantage") }
+                        items(advantageCards) { card -> 
+                            BattleCardRow(
+                                card = card,
+                                onDoubleClick = { zoomedCard = card }
+                            ) 
+                        }
+                    }
                 }
+            } ?: run {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
-        } ?: run {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
             Button(
                 onClick = {
                     battleDeck?.let { deck ->
@@ -117,15 +124,46 @@ fun BattleDeckDetailView(
                 advantageDeck = shuffledAdvantage
             )
         }
+
+        // Zoom Dialog
+        zoomedCard?.let { card ->
+            Dialog(
+                onDismissRequest = { zoomedCard = null },
+                properties = DialogProperties(usePlatformDefaultWidth = false)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.9f))
+                        .combinedClickable(
+                            onClick = { zoomedCard = null },
+                            onDoubleClick = { zoomedCard = null }
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = card.imageRes),
+                        contentDescription = "Zoomed Battle Card",
+                        modifier = Modifier.fillMaxSize(0.9f),
+                        contentScale = ContentScale.Fit
+                    )
+                }
+            }
+        }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BattleCardRow(card: BattleCard) {
+fun BattleCardRow(card: BattleCard, onDoubleClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp), // Add some space between cards
+            .padding(vertical = 4.dp)
+            .combinedClickable(
+                onClick = { /* Could toggle selection if needed */ },
+                onDoubleClick = onDoubleClick
+            ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(
@@ -139,12 +177,18 @@ fun BattleCardRow(card: BattleCard) {
                 text = card.title,
                 style = MaterialTheme.typography.bodyLarge
             )
+            // Small indicator that double click is possible
+            Text(
+                text = "Double tap to zoom",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
 
 @Composable
-fun SectionHeader(title: String) { // Renamed parameter for clarity
+fun SectionHeader(title: String) {
     Column(modifier = Modifier.padding(vertical = 16.dp)) {
         Text(
             text = title,
@@ -162,3 +206,5 @@ fun SectionHeader(title: String) { // Renamed parameter for clarity
         )
     }
 }
+
+private fun <T> emptyOf(): List<T> = emptyList()

@@ -4,26 +4,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -36,6 +31,7 @@ import com.example.legioncommander.model.commandcards.Faction
 import com.example.legioncommander.ui.theme.LegionCommanderTheme
 import com.example.legioncommander.ui.theme.StarJediFontFamily
 import com.example.legioncommander.ui.theme.icons.Playing_cards
+import com.example.legioncommander.viewmodels.ChatViewModel
 import com.example.legioncommander.views.battlecards.BattleDeckCreationView
 import com.example.legioncommander.views.DeckBuilderView
 import com.example.legioncommander.views.StartMatchView
@@ -43,31 +39,24 @@ import com.example.legioncommander.views.MatchView
 import com.example.legioncommander.views.commandcards.CommandDeckCreationView
 import com.example.legioncommander.views.commandcards.CommandDeckDetailView
 import com.example.legioncommander.views.battlecards.BattleDeckDetailView
+import kotlinx.coroutines.launch
 
-// Sealed class to define the navigation routes for our screens
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
     object DeckBuilder : Screen("deck_builder", "Deck Builder", Icons.Default.Home)
     object MyDecks : Screen("my_decks", "Match Start", Playing_cards)
-    object Settings : Screen("settings", "Analyzer", Icons.Default.Settings)
+    object Settings : Screen("settings", "Settings", Icons.Default.Settings)
     object DeckCreation : Screen("deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
-        // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"
     }
-
-    //Battle Deck
     object BattleDeckCreation : Screen("battle_deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
-        // Helper function to create the correct route for a specific faction
         fun createRoute(factionName: String) = "deck_creation/$factionName"
     }
-
     object DeckDetail : Screen("deck_detail/{deckId}", "Deck Detail", Icons.Default.List) {
         fun createRoute(deckId: Int) = "deck_detail/$deckId"
     }
-
     object BattleDeckDetail : Screen("battle_deck_detail/{deckId}", "Battle Deck", Icons.Default.List) {
         fun createRoute(deckId: Int) = "battle_deck_detail/$deckId"
     }
-
     object Match : Screen("match/{commandDeckId}/{battleDeckId}/{useDangerous}", "Match", Icons.Default.List) {
         fun createRoute(commandDeckId: Int, battleDeckId: Int, useDangerous: Boolean) =
             "match/$commandDeckId/$battleDeckId/$useDangerous"
@@ -89,18 +78,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-
-    val items = listOf(
-        Screen.DeckBuilder,
-        Screen.MyDecks,
-        Screen.Settings,
-    )
-
-    // Get current back stack entry
+    val items = listOf(Screen.DeckBuilder, Screen.MyDecks, Screen.Settings)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-
-    // List of top-level screens where the bottom bar should be shown
     val topLevelScreens = listOf(Screen.DeckBuilder.route, Screen.MyDecks.route, Screen.Settings.route)
     val shouldShowBottomBar = currentDestination?.route in topLevelScreens
 
@@ -130,26 +110,18 @@ fun MainScreen() {
         }
     ) { innerPadding ->
         NavHost(navController, startDestination = Screen.DeckBuilder.route, Modifier.padding(innerPadding)) {
-            composable(Screen.DeckBuilder.route) {
-                // Call your new composable from the other file
-                DeckBuilderView(navController)
-            }
-            composable(Screen.MyDecks.route) {
-                StartMatchView(navController = navController)
-            }
+            composable(Screen.DeckBuilder.route) { DeckBuilderView(navController) }
+            composable(Screen.MyDecks.route) { StartMatchView(navController = navController) }
             composable(Screen.Settings.route) { SettingsScreen() }
             composable(
                 route = Screen.DeckCreation.route,
                 arguments = listOf(navArgument("factionName") { type = NavType.StringType })
             ) { backStackEntry ->
                 val factionName = backStackEntry.arguments?.getString("factionName")
-                // It's safer to convert the String to the Enum here
                 val selectedFaction = factionName?.let { Faction.valueOf(it) }
-
                 if (selectedFaction != null) {
                     CommandDeckCreationView(selectedFaction = selectedFaction)
                 } else {
-                    // If faction is null for some reason, just go back
                     navController.popBackStack()
                 }
             }
@@ -157,12 +129,10 @@ fun MainScreen() {
                 route = Screen.DeckDetail.route,
                 arguments = listOf(navArgument("deckId") { type = NavType.IntType })
             ) { backStackEntry ->
-                // Retrieve the deckId argument from the route
                 val deckId = backStackEntry.arguments?.getInt("deckId")
                 if (deckId != null) {
                     CommandDeckDetailView(deckId = deckId)
                 } else {
-                    // If the ID is missing for some reason, go back.
                     navController.popBackStack()
                 }
             }
@@ -170,18 +140,13 @@ fun MainScreen() {
                 route = Screen.BattleDeckCreation.route,
                 arguments = listOf(navArgument("factionName") { type = NavType.StringType })
             ) { backStackEntry ->
-                // Retrieve the factionName from the arguments
                 val factionName = backStackEntry.arguments?.getString("factionName")
                 if (factionName != null) {
-                    // Pass the navController and the factionName to your new view
-                    BattleDeckCreationView(
-                    )
+                    BattleDeckCreationView()
                 } else {
-                    // Handle the error case, e.g., navigate back or show an error message
                     navController.popBackStack()
                 }
             }
-
             composable(
                 route = Screen.BattleDeckDetail.route,
                 arguments = listOf(navArgument("deckId") { type = NavType.IntType })
@@ -190,7 +155,6 @@ fun MainScreen() {
                 requireNotNull(deckId) { "deckId parameter was not found." }
                 BattleDeckDetailView(deckId = deckId)
             }
-
             composable(
                 route = Screen.Match.route,
                 arguments = listOf(
@@ -213,16 +177,106 @@ fun MainScreen() {
 }
 
 @Composable
-fun SettingsScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "List Analyzer, coming soon!", fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
-    }
-}
+fun SettingsScreen(viewModel: ChatViewModel = viewModel()) {
+    val storedApiKey by viewModel.userApiKey.collectAsState(initial = "")
+    var tempKey by remember(storedApiKey) { mutableStateOf(storedApiKey ?: "") }
+    val uriHandler = LocalUriHandler.current
+    val scrollState = rememberScrollState()
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-    LegionCommanderTheme {
-        MainScreen()
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+                .padding(20.dp)
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Settings",
+                fontFamily = StarJediFontFamily,
+                style = MaterialTheme.typography.headlineMedium
+            )
+            
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Gemini AI Configuration",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Paste your key from the 'API key' column in AI Studio.",
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+
+                    OutlinedTextField(
+                        value = tempKey,
+                        onValueChange = { tempKey = it },
+                        label = { Text("API Key") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Button(
+                        onClick = { 
+                            viewModel.saveApiKey(tempKey)
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Key Saved! You can now use the Analyzer.")
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Save & Update Droid")
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Text(
+                text = "Troubleshooting:",
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold
+            )
+            
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text(
+                        text = "1. Enable 'Generative Language API' in Cloud Console.\n" +
+                               "2. Wait 5 minutes for Google to activate the key.\n" +
+                               "3. If 404 persists, try a fresh key from a NEW project in AI Studio.",
+                        style = MaterialTheme.typography.bodySmall,
+                        lineHeight = 20.sp
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(
+                onClick = { uriHandler.openUri("https://aistudio.google.com/app/apikey") },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(Icons.Default.Key, contentDescription = null)
+                Spacer(Modifier.width(8.dp))
+                Text("Open AI Studio")
+            }
+        }
     }
 }
