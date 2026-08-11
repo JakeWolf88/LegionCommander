@@ -2,10 +2,11 @@ package com.example.legioncommander.views.battlecards
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -22,10 +23,12 @@ import androidx.compose.ui.unit.dp
 import com.example.legioncommander.R
 import com.example.legioncommander.model.battlecards.BattleCard
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FlippableCardView(
     card: BattleCard,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDoubleClick: () -> Unit = {}
 ) {
     var isFlipped by remember { mutableStateOf(false) }
 
@@ -42,7 +45,13 @@ fun FlippableCardView(
                 rotationY = rotation
                 cameraDistance = 8 * density
             }
-            .clickable { isFlipped = !isFlipped },
+            .combinedClickable(
+                onClick = { isFlipped = !isFlipped },
+                onDoubleClick = { 
+                    // Only allow zoom if the card is face-up
+                    if (isFlipped) onDoubleClick() 
+                }
+            ),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         if (rotation < 90f) {
@@ -63,7 +72,7 @@ fun CardBack() {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.battle_deck_backside), // Replace with your logo
+            painter = painterResource(id = R.drawable.battle_deck_backside),
             contentDescription = "Card Back",
             modifier = Modifier.fillMaxSize()
         )
@@ -81,7 +90,7 @@ fun CardFront(card: BattleCard, modifier: Modifier = Modifier) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                painter = painterResource(id = card.imageRes), // Replace with your logo
+                painter = painterResource(id = card.imageRes),
                 contentDescription = "Card Front",
                 modifier = Modifier.fillMaxSize()
             )

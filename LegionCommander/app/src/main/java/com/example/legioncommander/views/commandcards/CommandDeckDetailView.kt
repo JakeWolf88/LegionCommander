@@ -1,10 +1,9 @@
 package com.example.legioncommander.views.commandcards
 
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -16,8 +15,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,6 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.legioncommander.model.commandcards.CommandCard
 import com.example.legioncommander.model.commandcards.CommandCardRepository
@@ -41,7 +40,7 @@ import kotlin.math.roundToInt
 
 private enum class SwipeState { NORMAL, USED }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class) // Add ExperimentalMaterialApi
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun CommandDeckDetailView(
     deckId: Int,
@@ -52,11 +51,10 @@ fun CommandDeckDetailView(
     }
     val deck by viewModel.deck.collectAsState()
     val allCards = CommandCardRepository.getAllCards()
-    val currentDeck = deck
     val usedCardIds = viewModel.usedCardIds
     var isZoomed by remember { mutableStateOf(false) }
 
-    if (currentDeck == null) {
+    val currentDeck = deck ?: run {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text("Loading Deck...", fontFamily = StarJediFontFamily)
         }
@@ -67,7 +65,7 @@ fun CommandDeckDetailView(
         .sortedBy { it.pips }
 
     val pagerState = rememberPagerState(pageCount = { cardsInDeck.size })
-    val horizontalPadding by animateDpAsState(if (isZoomed) 0.dp else 48.dp, label = "")
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -86,31 +84,12 @@ fun CommandDeckDetailView(
                 .weight(1f),
             contentAlignment = Alignment.Center
         ) {
-            if (isZoomed) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.6f))
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { isZoomed = false }
-                )
-            }
-
             HorizontalPager(
                 state = pagerState,
-                contentPadding = PaddingValues(
-                    horizontal = horizontalPadding,
-                    vertical = 0.dp // Adjust this value as needed
-                ),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clickable(
-                        enabled = !isZoomed,
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) { isZoomed = true }
+                // Added significant vertical padding to prevent bottom clipping
+                contentPadding = PaddingValues(horizontal = 64.dp, vertical = 32.dp),
+                pageSpacing = 24.dp,
+                modifier = Modifier.fillMaxSize()
             ) { pageIndex ->
                 val card = cardsInDeck[pageIndex]
                 val isUsed = usedCardIds.contains(card.id)
@@ -118,6 +97,7 @@ fun CommandDeckDetailView(
                 SwipeableCard(
                     card = card,
                     isUsed = isUsed,
+                    onDoubleClick = { isZoomed = true },
                     onStateChange = {
                         viewModel.toggleCardUsedState(card.id)
                     }
@@ -133,60 +113,96 @@ fun CommandDeckDetailView(
         )
         Spacer(Modifier.height(24.dp))
     }
+
+    if (isZoomed) {
+        Dialog(
+            onDismissRequest = { isZoomed = false },
+            properties = DialogProperties(
+                usePlatformDefaultWidth = false,
+                decorFitsSystemWindows = false
+            )
+        ) {
+            val currentCard = cardsInDeck[pagerState.currentPage]
+            val isUsed = usedCardIds.contains(currentCard.id)
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .combinedClickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = { isZoomed = false }
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = currentCard.imageRes),
+                    contentDescription = currentCard.title,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Fit,
+                    colorFilter = if (isUsed) {
+                        ColorFilter.tint(Color.Red.copy(alpha = 0.99f), BlendMode.Multiply)
+                    } else {
+                        null
+                    }
+                )
+            }
+        }
+    }
 }
 
-/**
- * A private composable that manages the swipe state for a single card.
- */
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
 @Composable
 private fun SwipeableCard(
     card: CommandCard,
     isUsed: Boolean,
+    onDoubleClick: () -> Unit,
     onStateChange: () -> Unit
 ) {
-    val swipeDistance = (-150).dp // How far up the card moves
+    val swipeDistance = (-150).dp
     val swipeDistancePx = with(LocalDensity.current) { swipeDistance.toPx() }
-
-    // Anchors define resting points: 0f for normal, and a negative pixel value for "up"
     val anchors = mapOf(0f to SwipeState.NORMAL, swipeDistancePx to SwipeState.USED)
 
-    // The state object for the swipeable modifier
-// The state object for the swipeable modifier
     val swipeableState = rememberSwipeableState(
         initialValue = if (isUsed) SwipeState.USED else SwipeState.NORMAL,
         confirmStateChange = { newState ->
-            val changed = (newState == SwipeState.USED && !isUsed) || (newState == SwipeState.NORMAL && isUsed)
-            if (changed) {
+            if ((newState == SwipeState.USED && !isUsed) || (newState == SwipeState.NORMAL && isUsed)) {
                 onStateChange()
             }
             true
         }
     )
 
-// This effect is what synchronizes the swipeable state with the `isUsed` state
     LaunchedEffect(isUsed) {
         swipeableState.animateTo(if (isUsed) SwipeState.USED else SwipeState.NORMAL)
     }
+
     Box(
-        contentAlignment = Alignment.Center, // This will center the card horizontally
-        modifier = Modifier
-            .fillMaxSize() // Use fillMaxSize to occupy the pager's item space
+        contentAlignment = Alignment.TopCenter, // Changed to TopCenter to reclaim bottom space
+        modifier = Modifier.fillMaxSize()
     ) {
         Box(
             modifier = Modifier
-                .fillMaxHeight()
+                .fillMaxHeight(0.8f) // Reduced from 0.9f to ensure the bottom edge is visible
                 .aspectRatio(0.7f)
                 .padding(vertical = 8.dp)
                 .swipeable(
                     state = swipeableState,
                     anchors = anchors,
                     orientation = Orientation.Vertical,
-                    thresholds = { _, _ -> FractionalThreshold(0.5f) } // Swipe 50% to trigger
+                    thresholds = { _, _ -> FractionalThreshold(0.5f) }
                 )
                 .offset { IntOffset(0, swipeableState.offset.value.roundToInt()) }
         ) {
-            Card(modifier = Modifier.fillMaxSize()) {
+            Card(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .combinedClickable(
+                        onClick = { /* Swipes handled by modifier */ },
+                        onDoubleClick = onDoubleClick
+                    )
+            ) {
                 Image(
                     painter = painterResource(id = card.imageRes),
                     contentDescription = card.title,
