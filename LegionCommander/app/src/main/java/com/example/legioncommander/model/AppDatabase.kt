@@ -7,12 +7,15 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.legioncommander.model.battlecards.BattleDeck
 import com.example.legioncommander.model.commandcards.CommandDeck
+import com.example.legioncommander.model.unitcards.UnitCard
+import com.example.legioncommander.model.unitcards.UnitCardDao
 
 @TypeConverters(Converters::class)
-@Database(entities = [CommandDeck::class, BattleDeck::class], version = 2) // Assuming version 1 for now
+@Database(entities = [CommandDeck::class, BattleDeck::class, UnitCard::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun commandDeckDao(): CommandDeckDao
+    abstract fun unitCardDao(): UnitCardDao
 
     companion object {
         @Volatile

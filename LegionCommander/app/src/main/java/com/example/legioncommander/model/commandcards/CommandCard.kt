@@ -1,9 +1,10 @@
 package com.example.legioncommander.model.commandcards
 
 import androidx.annotation.DrawableRes
+import kotlinx.serialization.Serializable
 
 // Enum to represent the different factions in a type-safe way
-//TODO: Update this enum name and fields. Maybe call it DeckType
+@Serializable
 enum class Faction {
     REPUBLIC,
     SEPARATISTS,
@@ -13,6 +14,7 @@ enum class Faction {
     BATTLE_DECK,
 }
 
+@Serializable
 enum class CardStatus
 {
     NORMAL,
@@ -21,6 +23,7 @@ enum class CardStatus
 }
 
 // Data class to hold the information for a command card
+@Serializable
 data class CommandCard(
     val id: String,
     val title: String,

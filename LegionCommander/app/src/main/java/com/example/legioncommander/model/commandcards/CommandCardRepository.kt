@@ -4,7 +4,7 @@ import com.example.legioncommander.R
 
 object CommandCardRepository {
 
-    private val allCards = listOf(
+    private val cardsList = listOf(
         // --- Generic Cards (faction is null) ---
         //Generic
         CommandCard(
@@ -1743,12 +1743,12 @@ object CommandCardRepository {
     )
 
     fun getCardsForFaction(faction: Faction): List<CommandCard> {
-        return allCards.filter { card ->
+        return cardsList.filter { card ->
             card.factions.isEmpty() || card.factions.contains(faction)
         }
     }
 
     fun getAllCards(): List<CommandCard> {
-        return allCards
+        return cardsList
     }
 }

@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -37,16 +39,42 @@ data class DeckButtonItem(
 fun DeckBuilderView(navController: NavController) {
 
     val deckButtons = listOf(
-        DeckButtonItem("Rebels Command Deck", R.drawable.rebel_logo, Faction.REBELS),
-        DeckButtonItem("Republic Command Deck", R.drawable.republic_logo, Faction.REPUBLIC),
-        DeckButtonItem("CIS Command Deck", R.drawable.cis_logo, Faction.SEPARATISTS),
-        DeckButtonItem("Empire Command Deck", R.drawable.empire_logo, Faction.EMPIRE),
-        DeckButtonItem("Mercenary Command Deck", R.drawable.shadow_collective_logo, Faction.SHADOW_COLLECTIVE),
+        DeckButtonItem("Rebels", R.drawable.rebel_logo, Faction.REBELS),
+        DeckButtonItem("Republic", R.drawable.republic_logo, Faction.REPUBLIC),
+        DeckButtonItem("Separatists", R.drawable.cis_logo, Faction.SEPARATISTS),
+        DeckButtonItem("Empire", R.drawable.empire_logo, Faction.EMPIRE),
+        DeckButtonItem("Shadow Collective", R.drawable.shadow_collective_logo, Faction.SHADOW_COLLECTIVE),
         DeckButtonItem("Battle Deck", R.drawable.battle_deck_icon, Faction.BATTLE_DECK),
-        //TODO: Create some more decks
-        //DeckButtonItem("Tour Of Duty Deck", R.drawable.tod_icon, Faction.BATTLE_DECK),
-        //DeckButtonItem("Recon Deck", R.drawable.recon_icon, Faction.BATTLE_DECK),
     )
+
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedFaction by remember { mutableStateOf<Faction?>(null) }
+
+    if (showDialog && selectedFaction != null) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(text = "Select Deck Type", fontFamily = StarJediFontFamily) },
+            text = { Text("Would you like to create a Command Deck or an Army Deck for ${selectedFaction!!.name.lowercase().capitalize()}?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDialog = false
+                    val factionName: String = selectedFaction!!.name
+                    navController.navigate(Screen.DeckCreation.createRoute(factionName))
+                }) {
+                    Text("Command Deck")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showDialog = false
+                    val factionName: String = selectedFaction!!.name
+                    navController.navigate(Screen.ArmyDeckCreation.createRoute(factionName))
+                }) {
+                    Text("Army Deck")
+                }
+            }
+        )
+    }
 
     Column {
         Text("Create Your Deck", Modifier.padding(16.dp), fontSize = 24.sp, fontFamily = StarJediFontFamily, fontWeight = FontWeight.Bold)
@@ -62,18 +90,16 @@ fun DeckBuilderView(navController: NavController) {
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Loop through the new list of data objects
                 items(deckButtons) { item ->
                     Button(
                         onClick = {
                             if (item.factionIdentifier == Faction.BATTLE_DECK) {
-                                // Navigate to the new generic creation view
-                                navController.navigate(Screen.BattleDeckCreation.route)
+                                // Battle Deck might still use a specialized flow or we can fix the route name mismatch
+                                // Fixed typo: changed BattledDeckCreation to BattleDeckCreation
+                                navController.navigate(Screen.BattleDeckCreation.createRoute("BATTLE_DECK"))
                             } else {
-                                // Existing navigation for specific factions
-                                val factionName: String = item.factionIdentifier.name
-                                val route: String = Screen.DeckCreation.createRoute(factionName)
-                                navController.navigate(route)
+                                selectedFaction = item.factionIdentifier
+                                showDialog = true
                             }
                         },
                         shape = RectangleShape,
@@ -86,15 +112,15 @@ fun DeckBuilderView(navController: NavController) {
                         ) {
                             Image(
                                 painter = painterResource(id = item.imageRes),
-                                contentDescription = item.label, // For accessibility
-                                modifier = Modifier.size(125.dp), // Adjust size as needed
+                                contentDescription = item.label,
+                                modifier = Modifier.size(125.dp),
                                 contentScale = ContentScale.Fit
                             )
-                            Spacer(modifier = Modifier.height(8.dp)) // Space between image and text
+                            Spacer(modifier = Modifier.height(8.dp))
                             Text(
                                 fontFamily = StarJediFontFamily,
                                 text = item.label,
-                                textAlign = TextAlign.Center // Center the text if it wraps
+                                textAlign = TextAlign.Center
                             )
                         }
                     }

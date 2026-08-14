@@ -43,6 +43,7 @@ import com.example.legioncommander.views.MatchView
 import com.example.legioncommander.views.commandcards.CommandDeckCreationView
 import com.example.legioncommander.views.commandcards.CommandDeckDetailView
 import com.example.legioncommander.views.battlecards.BattleDeckDetailView
+import com.example.legioncommander.views.army.ArmyDeckCreationView
 
 // Sealed class to define the navigation routes for our screens
 sealed class Screen(val route: String, val label: String, val icon: ImageVector) {
@@ -57,7 +58,11 @@ sealed class Screen(val route: String, val label: String, val icon: ImageVector)
     //Battle Deck
     object BattleDeckCreation : Screen("battle_deck_creation/{factionName}", "Deck Creation", Icons.Default.Build) {
         // Helper function to create the correct route for a specific faction
-        fun createRoute(factionName: String) = "deck_creation/$factionName"
+        fun createRoute(factionName: String) = "battle_deck_creation/$factionName"
+    }
+
+    object ArmyDeckCreation : Screen("army_deck_creation/{factionName}", "Army Creation", Icons.Default.Build) {
+        fun createRoute(factionName: String) = "army_deck_creation/$factionName"
     }
 
     object DeckDetail : Screen("deck_detail/{deckId}", "Deck Detail", Icons.Default.List) {
@@ -178,6 +183,19 @@ fun MainScreen() {
                     )
                 } else {
                     // Handle the error case, e.g., navigate back or show an error message
+                    navController.popBackStack()
+                }
+            }
+
+            composable(
+                route = Screen.ArmyDeckCreation.route,
+                arguments = listOf(navArgument("factionName") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val factionName = backStackEntry.arguments?.getString("factionName")
+                val selectedFaction = factionName?.let { Faction.valueOf(it) }
+                if (selectedFaction != null) {
+                    ArmyDeckCreationView(faction = selectedFaction)
+                } else {
                     navController.popBackStack()
                 }
             }
